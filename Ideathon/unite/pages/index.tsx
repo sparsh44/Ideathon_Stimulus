@@ -13,6 +13,7 @@ const Home = () => {
         <Account session={session} />
       )}
     </div>
+
   )
 }
 
