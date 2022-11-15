@@ -8,11 +8,13 @@ import HomePage from '../components/HomeScreen/HomePage'
 const customTheme = {
   default: {
     colors: {
-      brand: 'hsl(153 60.0% 53.0%)',
-      brandAccent: 'hsl(154 54.8% 45.1%)',
+      brand: 'hsl(354deg 88% 36%)',
+      brandAccent: 'hsl(354deg 88% 36%)',
       brandButtonText: 'white',
       // ..
   },
+  
+  
 }
 }
 const Home = () => {
@@ -23,10 +25,16 @@ const Home = () => {
   
   return (
     
-    <div>
+    <div >
       {!session ? (
+        <div className='flex w-full justify-center'>
+
+        <div className=' w-80 flex justify-center mt-28 bg-blue-300'>
          <Auth supabaseClient={supabase} 
          appearance={{ theme: customTheme }} theme="default"/>
+         </div>
+         </div>
+
       ) : (
         // if(pagechanger==="account"){
         // <Account session={session}/>
