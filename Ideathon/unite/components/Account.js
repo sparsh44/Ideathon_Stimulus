@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from '../components/Avatar'
+import { createFalse } from 'typescript'
 
-export default function Account({ session }) {
+export default function Account({session}) {
   const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [full_name, setfullname] = useState(null)
-  const [website, setWebsite] = useState(null)
+  
   const [avatar_url, setAvatarUrl] = useState(null)
-
-
   useEffect(() => {
     getProfile()
   }, [session])
@@ -22,7 +21,7 @@ export default function Account({ session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url,full_name`)
+        .select(`username, avatar_url,full_name`)
         .eq('id', user.id)
         .single()
 
@@ -32,7 +31,7 @@ export default function Account({ session }) {
 
       if (data) {
         setUsername(data.username)
-        setWebsite(data.website)
+     
         setAvatarUrl(data.avatar_url)
         setfullname(data.full_name)
       }
@@ -44,14 +43,14 @@ export default function Account({ session }) {
     }
   }
 
-  async function updateProfile({ username, website, avatar_url,full_name }) {
+  async function updateProfile({ username, avatar_url,full_name }) {
     try {
       setLoading(true)
 
       const updates = {
         id: user.id,
         username,
-        website,
+        
         avatar_url,
         full_name,
         updated_at: new Date().toISOString(),
@@ -60,6 +59,7 @@ export default function Account({ session }) {
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
       alert('Profile updated!')
+      window.location.href="/Homepage";
     } catch (error) {
       alert('Error updating the data!')
       console.log(error)
@@ -69,6 +69,7 @@ export default function Account({ session }) {
   }
 
   return (
+   
     <div className="form-widget">
   
     
@@ -81,6 +82,7 @@ export default function Account({ session }) {
        
       }}
     />
+
 
  
       <div>
@@ -105,20 +107,12 @@ export default function Account({ session }) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+   
 
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url,full_name })}
+          onClick={() => {updateProfile({ username, avatar_url,full_name })}}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
@@ -132,9 +126,11 @@ export default function Account({ session }) {
       </div>
     </div>
   )
-}
+    }
 
 
 
 // ...
+
+
 
