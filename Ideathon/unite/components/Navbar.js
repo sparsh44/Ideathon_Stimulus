@@ -1,10 +1,56 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link';
 // import styles from '../../styles/Home.module.css'
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { BeakerIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
+import { useState, useEffect } from 'react'
+import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+
+
 function Navbar() {
+
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const session = useSession()
+  const [loading, setLoading] = useState(true)
+  const [username, setUsername] = useState(null)
+  const [full_name, setfullname] = useState(null)
+  
+  const [avatar_url, setAvatarUrl] = useState(null)
+  useEffect(() => {
+    getProfile()
+  }, [session])
+
+  async function getProfile() {
+    try {
+      setLoading(true)
+
+      let { data, error, status } = await supabase
+        .from('profiles')
+        .select(`username, avatar_url,full_name`)
+        .eq('id', user.id)
+        .single()
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      if (data) {
+        setUsername(data.username)
+     
+        setAvatarUrl(data.avatar_url)
+        setfullname(data.full_name)
+      }
+    } catch (error) {
+      alert('Error loading user data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
             <div className='relative h-20 w-40 py-1 flex-shrink-0 cursor-pointer'>
@@ -45,9 +91,10 @@ function Navbar() {
                         alt="user-avatar"
                     />
                 </div>
-                <p className='text-gray-400'>Sign In</p>
+                <p className='text-gray-400'>{username}</p>
             </div>
         </div>
+       
     )
 }
 

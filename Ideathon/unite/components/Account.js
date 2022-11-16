@@ -59,7 +59,6 @@ export default function Account({session}) {
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
       alert('Profile updated!')
-      window.location.href="/Homepage";
     } catch (error) {
       alert('Error updating the data!')
       console.log(error)
