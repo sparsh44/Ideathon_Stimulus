@@ -3,7 +3,7 @@ import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from '../components/Account'
 import { useState } from 'react'
-import HomePage from '../components/HomeScreen/HomePage'
+import Home from './Home'
 
 const customTheme = {
   default: {
@@ -37,7 +37,7 @@ const customTheme = {
   
 }
 }
-const Home = () => {
+const Main = () => {
   var [pagechanger, setpage] = useState("account")
   const session = useSession()
   const supabase = useSupabaseClient()
@@ -47,26 +47,24 @@ const Home = () => {
     
     <div >
       {!session ? (
-        <div className='flex w-full h-screen items-center justify-center bg-blue-300'>
+         <div className='flex w-full h-screen items-center justify-center bg-blue-300'>
 
-          <div className=' bg-white px-20 py-20 rounded-3xl border-2 border-grey-200'>
-            <div className = "flex justify-center items-center">
-              <h1 className = "text-5xl font-semibold text-slate-800"> UNITE </h1>
-            </div>
-            <p className = "font-medium text-lg text-gray-500 mt-4">Welcome Back! Please enter your details.</p>
-            <div className = "mt-8 ">
-                <Auth supabaseClient={supabase} 
-                appearance={{ theme: customTheme }} theme="default"/>
-            </div>
-          </div>
-        </div>
-
+         <div className=' bg-white px-20 py-20 rounded-3xl border-2 border-grey-200'>
+           <div className = "flex justify-center items-center">
+             <h1 className = "text-5xl font-semibold text-slate-800"> UNITE </h1>
+           </div>
+           <p className = "font-medium text-lg text-gray-500 mt-4">Welcome Back! Please enter your details.</p>
+           <div className = "mt-8 ">
+               <Auth supabaseClient={supabase} 
+               appearance={{ theme: customTheme }} theme="default"/>
+           </div>
+         </div>
+       </div>
       ) : (
         // if(pagechanger==="account"){
-        // <Account session={session}/>
-        <HomePage />
+        <Home />
         // }
-       
+
       )}
     </div>
 
@@ -74,4 +72,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Main

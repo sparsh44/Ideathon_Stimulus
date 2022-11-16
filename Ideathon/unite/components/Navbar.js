@@ -3,10 +3,8 @@ import Image from 'next/image'
 // import styles from '../../styles/Home.module.css'
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { BeakerIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/solid'
-import CompanyLogo from '../../assets/unite.png'
-
-
-export default function HomePage() {
+import CompanyLogo from '../assets/unite.png'
+function Navbar() {
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
             <div className='relative h-20 w-40 py-1 flex-shrink-0 cursor-pointer'>
@@ -52,3 +50,5 @@ export default function HomePage() {
         </div>
     )
 }
+
+export default Navbar
