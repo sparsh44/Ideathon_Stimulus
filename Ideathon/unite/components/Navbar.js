@@ -85,8 +85,10 @@ function Navbar() {
             <div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
                 <div className='relative h-5 w-5 flex-shrink-0 '>
                     <Image
+                        className=' rounded-full'
                         objectFit='contain'
-                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        
+                        src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/avatars/${avatar_url}`}
                         layout="fill"
                         alt="user-avatar"
                     />

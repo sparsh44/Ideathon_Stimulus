@@ -11,6 +11,7 @@ import PostBox from "../components/PostBox"
 
 const Home: NextPage = () => {
     return (
+        
         <div>
             <div className='  w-full relative'>
                 <Navbar />
