@@ -17,7 +17,9 @@ function MyApp({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <Component {...pageProps} />
+      <div className=' h-screen overflow-y-scroll bg-slate-200'>
+        <Component {...pageProps} />
+      </div>
     </SessionContextProvider>
   )
 }
