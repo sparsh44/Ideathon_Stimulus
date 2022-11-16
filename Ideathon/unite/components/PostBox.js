@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import MyAvatar from './MyAvatar'
 import { PhotographIcon } from '@heroicons/react/outline'
 import { LinkIcon } from '@heroicons/react/outline'
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 function PostBox() {
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
