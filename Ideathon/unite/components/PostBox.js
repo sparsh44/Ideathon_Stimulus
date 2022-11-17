@@ -3,7 +3,7 @@ import MyAvatar from './MyAvatar'
 import { PhotographIcon } from '@heroicons/react/outline'
 import { LinkIcon } from '@heroicons/react/outline'
 // import { useForm } from "react-hook-form";
-function PostBox() {
+function PostBox(props) {
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
     const [postImage, setPostImage] = useState("");
@@ -27,7 +27,7 @@ function PostBox() {
         <form className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
             <div className='flex items-center space-x-3'>
                 {/* avatar */}
-                <MyAvatar />
+                <MyAvatar avatar_url = {props.avatar_url} />
                 <input
                     onChange={e => setPostTitle(e.target.value)}
                     className='flex-1 rounded-md bg-gray-50 p-2 outline-none w-screen'
