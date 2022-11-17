@@ -5,52 +5,8 @@ import Link from 'next/link';
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { BeakerIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
-import { useState, useEffect } from 'react'
-import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
-
-function Navbar() {
-
-  const supabase = useSupabaseClient()
-  const user = useUser()
-  const session = useSession()
-  const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [full_name, setfullname] = useState(null)
-  
-  const [avatar_url, setAvatarUrl] = useState(null)
-  useEffect(() => {
-    getProfile()
-  }, [session])
-
-  async function getProfile() {
-    try {
-      setLoading(true)
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, avatar_url,full_name`)
-        .eq('id', user.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setUsername(data.username)
-     
-        setAvatarUrl(data.avatar_url)
-        setfullname(data.full_name)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
+function Navbar(props) {
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
             <div className='relative h-20 w-40 py-1 flex-shrink-0 cursor-pointer'>
@@ -88,12 +44,12 @@ function Navbar() {
                         className=' rounded-full'
                         objectFit='contain'
                         
-                        src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/avatars/${avatar_url}`}
+                        src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/avatars/${props.avatar_url}`}
                         layout="fill"
                         alt="user-avatar"
                     />
                 </div>
-                <p className='text-gray-400'>{username}</p>
+                <p className='text-gray-400'>{props.username}</p>
             </div>
         </div>
        
