@@ -73,23 +73,23 @@ const Main = () => {
         </div>
       ) : (
         // if(pagechanger==="account"){
-        // <Home />
-        <div className="flex w-full h-screen items-center justify-center bg-blue-300">
-          <div className=" bg-white px-20 py-20 rounded-3xl border-2 border-grey-200">
-            <div className="flex justify-center items-center">
-              <h1 className="text-5xl font-semibold text-slate-800">
-                {" "}
-                PROFILE{" "}
-              </h1>
-            </div>
-            <p className="font-medium text-lg text-gray-500 mt-4">
-              Welcome! Please Update your Details.
-            </p>
-            <div className="mt-8 ">
-              <Account session={session} />
-            </div>
-          </div>
-        </div>
+        <Home />
+        // <div className="flex w-full h-screen items-center justify-center bg-blue-300">
+        //   <div className=" bg-white px-20 py-20 rounded-3xl border-2 border-grey-200">
+        //     <div className="flex justify-center items-center">
+        //       <h1 className="text-5xl font-semibold text-slate-800">
+        //         {" "}
+        //         PROFILE{" "}
+        //       </h1>
+        //     </div>
+        //     <p className="font-medium text-lg text-gray-500 mt-4">
+        //       Welcome! Please Update your Details.
+        //     </p>
+        //     <div className="mt-8 ">
+        //       <Account session={session} />
+        //     </div>
+        //   </div>
+        // </div>
 
         // }
       )}

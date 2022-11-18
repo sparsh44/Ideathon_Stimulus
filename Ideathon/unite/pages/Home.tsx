@@ -22,6 +22,7 @@ const Home: NextPage = () => {
 
     const [avatar_url, setAvatarUrl] = useState(null)
     const [clubNames, setClubNames] = useState(null)
+    const [allPosts, setAllPosts] = useState(null)
 
 
     useEffect(() => {
@@ -76,6 +77,36 @@ const Home: NextPage = () => {
                 setClubNames(data)
                 console.log(data)
                 console.log("Clubs Name fetched")
+
+            }
+        } catch (error) {
+            alert('Error loading user data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getPosts()
+    }, [session])
+
+    async function getPosts() {
+        try {
+            setLoading(true)
+
+            let { data, error, status } = await supabase
+                .from('posts')
+                .select(`*`)
+
+            if (error && status !== 406) {
+                throw error
+            }
+
+            if (data) {
+                setAllPosts(data)
+                console.log(data)
+                console.log("All posts fetched")
 
             }
         } catch (error) {
