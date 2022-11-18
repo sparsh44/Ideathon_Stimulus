@@ -57,6 +57,8 @@ function PostBox(props) {
                                 onChange={(e) => setPostCommunity(e.target.value)}
                                 placeholder="i.e. ACM.."
                             />
+                            
+
                         </div>
                         {
                             imageBoxOpen && (
