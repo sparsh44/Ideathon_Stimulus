@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MyAvatar from './MyAvatar'
 import { PhotographIcon } from '@heroicons/react/outline'
 import { LinkIcon } from '@heroicons/react/outline'
+import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 // import { useForm } from "react-hook-form";
 function PostBox(props) {
     const [postTitle, setPostTitle] = useState("");
@@ -11,8 +12,9 @@ function PostBox(props) {
     const [imageBoxOpen, setImageBoxOpen] = useState(false);
     const [uploadImageHook, setUploadImageHook] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const clubNames=props.clubName;
- 
+    const [loading, setLoading] = useState(true)
+    const supabase = useSupabaseClient()
+    const clubNames = props.clubName;
 
     const uploadImage = () => {
         setImageBoxOpen("")
@@ -22,28 +24,55 @@ function PostBox(props) {
         setUploadImageHook("")
         setImageBoxOpen(!imageBoxOpen)
     }
-    const onSubmit = () => {
 
+   
+    const onSubmit = async({postTitle, postBody, postImage , postCommunity}) => {
+        try {
+            setLoading(true)
+
+            const { data, error } = await supabase
+                .from('posts')
+                .insert(
+                    {
+                        user_id: props.user.id,
+                        title: postTitle,
+                        content: postBody,
+                        attachment_url: postImage,
+                        clubName: postCommunity
+                    }
+                )
+                
+            if(data)
+            {
+                alert("Post created")
+            }
+            if (error) throw error
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
-    const choosingOptionsForPostCommunity = (CommunityName) => {
-        setPostCommunity(CommunityName);
-        setShowDropdown(false);
-    }
-    var rows=[];
-    var arr=clubNames||[];
-    console.log(clubNames);
+const handleClick = (clubName)=>{
+    setPostCommunity(clubName)
+    setShowDropdown(false)
+}
+    var rows = [];
+    var arr = clubNames || [];
+    // console.log(clubNames);
     arr.forEach(club => {
         rows.push(<div
-            onClick={() => choosingOptionsForPostCommunity(club.clubName)}
+            onClick={() => handleClick(club.clubName) }
             className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
         >
             {club.clubName}
         </div>)
-        
+
     });
-    console.log(rows);
-    console.log("rows");
-  
+    // console.log(rows);
+    // console.log("rows");
+
 
     return (
         <form className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
@@ -111,8 +140,6 @@ function PostBox(props) {
                                         <div className={` ${!showDropdown && `hidden`} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 shadow-lg`}>
                                             <div className="p-2">
                                                 {rows}
-                                            
-                                                {/* repeat line 89 to 94 to create options for more communities */}
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +161,7 @@ function PostBox(props) {
                         {
                             (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
                                 <div className='pt-5'>
-                                    <button onClick={onSubmit} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
+                                    <button onClick ={()=>onSubmit({postTitle, postBody, postImage , postCommunity})} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
                                 </div>
                             )
                         }

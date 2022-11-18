@@ -75,8 +75,8 @@ const Home: NextPage = () => {
 
             if (data) {
                 setClubNames(data)
-                console.log(data)
-                console.log("Clubs Name fetched")
+                // console.log(data)
+                // console.log("Clubs Name fetched")
 
             }
         } catch (error) {
@@ -105,8 +105,8 @@ const Home: NextPage = () => {
 
             if (data) {
                 setAllPosts(data)
-                console.log(data)
-                console.log("All posts fetched")
+                // console.log(data)
+                // console.log("All posts fetched")
 
             }
         } catch (error) {
@@ -126,7 +126,7 @@ const Home: NextPage = () => {
             </div>
             <div className='flex my-7 mx-auto max-w-5xl'>
                 {/* feed */}
-                <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} />
+                <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} session = {session} user={user}/>
                 {/* communities */}
 
             </div>
