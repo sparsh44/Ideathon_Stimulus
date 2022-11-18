@@ -13,94 +13,94 @@ import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-r
 
 
 const Home: NextPage = () => {
-  const supabase = useSupabaseClient()
-  const user = useUser()
-  const session = useSession()
-  const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [full_name, setfullname] = useState(null)
+    const supabase = useSupabaseClient()
+    const user = useUser()
+    const session = useSession()
+    const [loading, setLoading] = useState(true)
+    const [username, setUsername] = useState(null)
+    const [full_name, setfullname] = useState(null)
 
-  const [avatar_url, setAvatarUrl] = useState(null)
-  const [clubNames, setClubNames] = useState(null)
-  
+    const [avatar_url, setAvatarUrl] = useState(null)
+    const [clubNames, setClubNames] = useState(null)
 
-  useEffect(() => {
-    getProfile()
-  }, [session])
 
-  async function getProfile() {
-    try {
-      setLoading(true)
+    useEffect(() => {
+        getProfile()
+    }, [session])
 
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, avatar_url,full_name`)
-        .eq('id', user.id)
-        .single()
+    async function getProfile() {
+        try {
+            setLoading(true)
 
-      if (error && status !== 406) {
-        throw error
-      }
+            let { data, error, status } = await supabase
+                .from('profiles')
+                .select(`username, avatar_url,full_name`)
+                .eq('id', user.id)
+                .single()
 
-      if (data) {
-        setUsername(data.username)
-        setAvatarUrl(data.avatar_url)
-        setfullname(data.full_name)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
+            if (error && status !== 406) {
+                throw error
+            }
+
+            if (data) {
+                setUsername(data.username)
+                setAvatarUrl(data.avatar_url)
+                setfullname(data.full_name)
+            }
+        } catch (error) {
+            alert('Error loading user data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
-  }
 
-  useEffect(() => {
-    getAdminId()
-  }, [session])
+    useEffect(() => {
+        getAdminId()
+    }, [session])
 
-  async function getAdminId() {
-    try {
-      setLoading(true)
+    async function getAdminId() {
+        try {
+            setLoading(true)
 
-      let { data, error, status } = await supabase
-        .from('club_admins')
-        .select(`clubName`)
-        .eq('user_id', user.id)
-        
-      if (error && status !== 406) {
-        throw error
-      }
+            let { data, error, status } = await supabase
+                .from('club_admins')
+                .select(`clubName`)
+                .eq('user_id', user.id)
 
-      if (data) {
-        setClubNames(data)
-        console.log(data)
-        console.log("Clubs Name fetched")
+            if (error && status !== 406) {
+                throw error
+            }
 
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
+            if (data) {
+                setClubNames(data)
+                console.log(data)
+                console.log("Clubs Name fetched")
+
+            }
+        } catch (error) {
+            alert('Error loading user data!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
-  }
-  
 
-  return (
 
-    <div>
-      <div className='  w-full relative'>
-        <Navbar username={username} avatar_url={avatar_url} />
-      </div>
-      <div className='flex my-7 mx-auto max-w-5xl'>
-        {/* feed */}
-        <PostBox username={username} avatar_url={avatar_url} clubName = {clubNames} />
-        {/* communities */}
+    return (
 
-      </div>
-    </div>
-  )
+        <div>
+            <div className='  w-full relative'>
+                <Navbar username={username} avatar_url={avatar_url} />
+            </div>
+            <div className='flex my-7 mx-auto max-w-5xl'>
+                {/* feed */}
+                <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} />
+                {/* communities */}
+
+            </div>
+        </div>
+    )
 }
 
 export default Home
