@@ -11,6 +11,8 @@ function PostBox(props) {
     const [imageBoxOpen, setImageBoxOpen] = useState(false);
     const [uploadImageHook, setUploadImageHook] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const clubNames=props.clubName;
+ 
 
     const uploadImage = () => {
         setImageBoxOpen("")
@@ -27,6 +29,21 @@ function PostBox(props) {
         setPostCommunity(CommunityName);
         setShowDropdown(false);
     }
+    var rows=[];
+    var arr=clubNames||[];
+    console.log(clubNames);
+    arr.forEach(club => {
+        rows.push(<div
+            onClick={() => choosingOptionsForPostCommunity(club.clubName)}
+            className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
+        >
+            {club.clubName}
+        </div>)
+        
+    });
+    console.log(rows);
+    console.log("rows");
+  
 
     return (
         <form className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
@@ -93,24 +110,8 @@ function PostBox(props) {
 
                                         <div className={` ${!showDropdown && `hidden`} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 shadow-lg`}>
                                             <div className="p-2">
-                                                <div
-                                                    onClick={() => choosingOptionsForPostCommunity("ACM CSS")}
-                                                    className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
-                                                >
-                                                    ACM CSS
-                                                </div>
-                                                <div
-                                                    onClick={() => choosingOptionsForPostCommunity("Images")}
-                                                    className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
-                                                >
-                                                    Images
-                                                </div>
-                                                <div
-                                                    onClick={() => choosingOptionsForPostCommunity("SME")}
-                                                    className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
-                                                >
-                                                    SME
-                                                </div>
+                                                {rows}
+                                            
                                                 {/* repeat line 89 to 94 to create options for more communities */}
                                             </div>
                                         </div>
