@@ -70,58 +70,59 @@ export default function Account({session}) {
   return (
    
     <div className="form-widget">
-  
-    
-    <Avatar
-      uid={user.id}
-      url={avatar_url}
-      size={150}
-      onUpload={(url) => {
-        setAvatarUrl(url)
-       
-      }}
-    />
+      <div className = "ml-32 w-full rounded-full">
+        <Avatar className = "rounded-full"
+          uid={user.id}
+          url={avatar_url}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url)
+          
+          }}
+          />
+      </div>
 
 
  
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
+        <label htmlFor="email" className = "ml-1 text-lg font-medium ">Email</label>
+        <input id="email" type="text" className = "mb-2 w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent" value={session.user.email} disabled />
       </div>
       <div>
-        <label htmlFor="username">Fullname</label>
+        <label htmlFor="username" className = "ml-1 text-lg font-medium">Full-Name</label>
         <input
           id="username"
-          type="text"
+          type="text" className = "mb-2 w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent"
           value={full_name || ''}
           onChange={(e) => setfullname(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username" className = "ml-1 text-lg font-medium">Username</label>
         <input
           id="username"
-          type="text"
+          type="text" className = "w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent"
           value={username || ''}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
    
+      <div className = "flex">
+        <div>
+          <button
+            className="button primary block mt-6 ml-4 bg-violet-500 p-3 rounded-xl text-white"
+            onClick={() => {updateProfile({ username, avatar_url,full_name })}}
+            disabled={loading}
+          >
+            {loading ? 'Loading ...' : 'Update'}
+          </button>
+        </div>
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => {updateProfile({ username, avatar_url,full_name })}}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
+        <div>
+          <button className="button block mt-6 ml-28 bg-violet-500 p-3 rounded-xl text-white" onClick={() => supabase.auth.signOut()}>
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   )
