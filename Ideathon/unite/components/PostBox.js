@@ -5,6 +5,7 @@ import { LinkIcon } from '@heroicons/react/outline'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 // import { useForm } from "react-hook-form";
 function PostBox(props) {
+    const user=props.user;
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
     const [postImage, setPostImage] = useState("");
@@ -12,10 +13,43 @@ function PostBox(props) {
     const [imageBoxOpen, setImageBoxOpen] = useState(false);
     const [uploadImageHook, setUploadImageHook] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+
+  const [uploading, setUploading] = useState(false)
     const supabase = useSupabaseClient()
     const clubNames = props.clubName;
+    const uploadMedia = async (event) => {
+        try {
+          setUploading(true)
+          console.log(event);
+    
+          if (!event.target.files || event.target.files.length === 0) {
+            throw new Error('You must select an image to upload.')
+          }
+    
+          const file = event.target.files[0]
+          const fileExt = file.name.split('.').pop()
+          const fileName = `${user.id}.${fileExt}`
+          const filePath = `${fileName}`
+    
+          let { error: uploadError } = await supabase.storage
+            .from('media')
+            .upload(filePath, file, { upsert: true })
+    
+          if (uploadError) {
+            throw uploadError
+          }
+          alert("File Uploaded");
+    
+          setPostImage(filePath);
 
+        } catch (error) {
+          alert(error)
+          console.log(error)
+        } finally {
+          setUploading(false)
+        }
+      }
     const uploadImage = () => {
         setImageBoxOpen("")
         setUploadImageHook(!uploadImageHook)
@@ -85,7 +119,7 @@ const handleClick = (clubName)=>{
                     type="text"
                     placeholder="Create a post by entering the Title..."
                 />
-                <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
+                <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage}/>
                 <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
                 />
             </div>
@@ -157,6 +191,22 @@ const handleClick = (clubName)=>{
                                     />
                                 </div>
                             )
+                        }
+                        {
+                            uploadImageHook && (
+                                <div className='flex items-center px-2'>
+                                    <div className='min-w-[90px]'>Image: </div>
+                                    <input
+                                        type="file"
+                                        accept='image/*'
+                                        className='m-2 flex-1 bg-blue-50 outline-none p-2'
+                                        onChange={uploadMedia}
+                                        disabled={uploading}
+                                        
+                                    />
+                                </div>
+                            )
+
                         }
                         {
                             (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
