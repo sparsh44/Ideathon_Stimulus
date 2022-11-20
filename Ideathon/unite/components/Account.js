@@ -42,6 +42,18 @@ export default function Account({session}) {
       setLoading(false)
     }
   }
+  async function removePhoto(){
+    const { data, error } = await supabase.storage.from('avatars')
+
+  .remove([avatar_url]);
+  if(error){
+    alert(error);
+  }
+  if(data){
+    setAvatarUrl(null);
+  }
+  }
+
 
   async function updateProfile({ username, avatar_url,full_name }) {
     try {
@@ -121,6 +133,9 @@ export default function Account({session}) {
         <div>
           <button className="button block mt-6 ml-28 bg-violet-500 p-3 rounded-xl text-white" onClick={() => supabase.auth.signOut()}>
             Sign Out
+          </button>
+          <button className="button block mt-6 ml-28 bg-violet-500 p-3 rounded-xl text-white" onClick={removePhoto}>
+            Remove DP
           </button>
         </div>
       </div>
