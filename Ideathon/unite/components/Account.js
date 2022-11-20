@@ -50,6 +50,7 @@ export default function Account({session}) {
     alert(error);
   }
   if(data){
+    alert("Photo Removed")
     setAvatarUrl(null);
   }
   }
