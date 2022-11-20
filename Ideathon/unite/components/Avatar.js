@@ -63,7 +63,12 @@ export default function Avatar({ uid, url, size, onUpload }) {
           style={{ height: size, width: size }}
         />
       ) : (
-        <div className="avatar no-image" style={{ height: size, width: size }} />
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+          alt="Avatar"
+          className="avatar image rounded-full -ml-12"
+          style={{ height: size, width: size }}
+        />
       )}
       <div style={{ width: size }}>
         <label className="button primary block" htmlFor="single">
