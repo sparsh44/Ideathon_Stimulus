@@ -3,7 +3,7 @@ import React from 'react'
 import logo from '../assets/circular_favicon_light.png'
 import Image from 'next/image'
 import SidebarRow from '../components/SidebarRow'
-import Community from '../assets/Community'
+import Community from '../assets/CommunityData'
 
 function Sidebar() {
     return (

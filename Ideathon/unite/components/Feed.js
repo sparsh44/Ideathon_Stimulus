@@ -1,13 +1,18 @@
 import React from 'react'
 import { RefreshIcon } from '@heroicons/react/outline'
+import PostData from '../assets/PostData'
+import Post from './Post'
 
 function Feed() {
     return (
-        <div className='col-span-7 lg:col-span-5'>
-            <div className=' flex items-center justify-between'>
-                <h1 className=' p-5 pb-0 text-xl font-bold'>ACM</h1>
-                <RefreshIcon className='mr-5 mt-5 h-8 w-8 cursor-pointer text-red-600 transition-all duration-500 ease-out hover:rotate-180 active:scale-125 ' />
-            </div>
+        <div className='mt-5 space-y-4'>
+            {
+                PostData.map((e) => {
+                    return (
+                        <Post post={e}/>
+                    )
+                })
+            }
         </div>
     )
 }

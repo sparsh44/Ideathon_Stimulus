@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 // import styles from '../../styles/Home.module.css'
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
-import { BeakerIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/solid'
+import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
 
 function Navbar(props) {
@@ -16,8 +16,8 @@ function Navbar(props) {
                     alt={'Company Logo'} />
             </div>
             <div className="mx-7 flex item-center items-center xl:min-w-[300px]">
-                <HomeIcon className="h-6 w-6" />
-                <p className='ml-2 hidden flex-1 lg:inline'>Home</p>
+                <FilterIcon className="h-6 w-6" />
+                <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
                 <ChevronDownIcon className="h-6 w-6" />
             </div>
             <form className="flex flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">

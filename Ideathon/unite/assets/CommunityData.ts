@@ -1,4 +1,4 @@
-const Community = [
+const CommunityData = [
     {
         id: 1,
         title: "ACM",
@@ -30,4 +30,4 @@ const Community = [
         join: true
     },
 ]
-export default Community;
+export default CommunityData;
