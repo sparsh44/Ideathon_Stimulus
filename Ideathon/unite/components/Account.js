@@ -2,8 +2,16 @@ import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from '../components/Avatar'
 import { createFalse } from 'typescript'
+import { useRouter } from 'next/router'
+
+//...
+
+
+
+
 
 export default function Account({session}) {
+  const router=useRouter();
   const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
@@ -43,16 +51,37 @@ export default function Account({session}) {
     }
   }
   async function removePhoto(){
+
+   
     const { data, error } = await supabase.storage.from('avatars')
 
   .remove([avatar_url]);
+
   if(error){
     alert(error);
   }
+
   if(data){
-    alert("Photo Removed")
+   
     setAvatarUrl(null);
   }
+
+
+    const updates = {
+      id: user.id,
+      
+      avatar_url:null
+      
+    }
+
+    let { erro } = await supabase.from('profiles').upsert(updates)
+    if (erro) throw erro
+    alert("Photo Removed")
+    router.reload();
+ 
+  
+  
+  
   }
 
 
@@ -72,11 +101,13 @@ export default function Account({session}) {
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
       alert('Profile updated!')
+     
     } catch (error) {
       alert('Error updating the data!')
       console.log(error)
     } finally {
       setLoading(false)
+      router.reload()
     }
   }
 
@@ -147,6 +178,8 @@ export default function Account({session}) {
 
 
 // ...
+
+
 
 
 
