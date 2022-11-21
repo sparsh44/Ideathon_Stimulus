@@ -72,8 +72,8 @@ const Main = () => {
           </div>
         </div>
       ) : (
-        // <Home />
-        <ProfilePage session={session} />
+        <Home />
+        // <ProfilePage session={session} />
       )}
     </div>
   );

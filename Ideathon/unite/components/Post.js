@@ -13,7 +13,7 @@ function Post(props) {
                 <div className='flex items-center space-x-2'>
                     <MyAvatar avatar_url="" />
                     <p className='text-xc text-gray-400'>
-                        <span className='font-bold text-black hover:text-blue-400 hover:underline'>c/{props.post.community}</span> · Posted by {props.post.user} 55min ago
+                        <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.community}</span> · Posted by {props.post.user} 55min ago
                     </p>
                 </div>
                 <div className='py-4'>

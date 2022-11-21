@@ -18,7 +18,7 @@ function Navbar(props) {
             <div className="mx-7 flex item-center items-center xl:min-w-[300px]">
                 <FilterIcon className="h-6 w-6" />
                 <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
-                <ChevronDownIcon className="h-6 w-6" />
+                <ChevronDownIcon className="h-6 w-6 cursor-pointer" />
             </div>
             <form className="flex flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">
                 <SearchIcon className="h-6 w-6 text-gray-400" />
