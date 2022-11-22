@@ -6,8 +6,9 @@ import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-r
 import { useRouter } from 'next/router'
 // import { useForm } from "react-hook-form";
 function PostBox(props) {
+
     const user = props.user;
-    const router=useRouter();
+    const router = useRouter();
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
     const [postImage, setPostImage] = useState("");
@@ -21,8 +22,8 @@ function PostBox(props) {
     const [uploading, setUploading] = useState(false)
     const supabase = useSupabaseClient()
     const clubNames = props.clubName;
-    
-    
+
+
     const toggleMenu = () => setOpen(!isOpen);
 
     const previewImage = (e) => {
@@ -53,9 +54,9 @@ function PostBox(props) {
                 throw uploadError
             }
             else {
-                
+
                 setPostImage(filePath);
-                
+
                 alert("Image Loaded");
                 toggleMenu();
                 // alert("File Uploaded");
@@ -77,19 +78,19 @@ function PostBox(props) {
     //     setImageBoxOpen(!imageBoxOpen)
     // }
 
-    const removeMedia= async()=>{
+    const removeMedia = async () => {
         const { data, error } = await supabase.storage.from('media').remove([postImage]);
         setPostImage("");
         setUploadImageHook(false);
-     
+
         toggleMenu();
         setImagePreviewing();
         alert("Image Removed");
-        if(error){
+        if (error) {
             alert(error);
             console.log(error);
         }
-     
+
     }
 
 
@@ -97,7 +98,7 @@ function PostBox(props) {
         try {
             setLoading(true)
 
-            const {error } = await supabase
+            const { error } = await supabase
                 .from('posts')
                 .insert(
                     {
@@ -106,14 +107,14 @@ function PostBox(props) {
                         content: postBody,
                         attachment_url: postImage,
                         clubName: postCommunity,
-                        postedBy:props.username
+                        postedBy: props.username
                     }
                 )
-            if(!error){
+            if (!error) {
                 alert("Post created")
                 router.reload();
             }
-            
+
             // if (error) throw error
 
         } catch (error) {
@@ -152,7 +153,9 @@ function PostBox(props) {
                     onChange={e => setPostTitle(e.target.value)}
                     className='flex-1 rounded-md bg-gray-50 p-2 outline-none w-screen'
                     type="text"
-                    placeholder="Create a post by entering the Title..."
+                    placeholder={
+                        props.community ? `Create a post in ${props.community}` : "Create a post by entering a title!"
+                    }
                 />
                 <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
                 {/* <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
@@ -170,66 +173,54 @@ function PostBox(props) {
                             />
                         </div>
 
-                        <div className='flex items-center px-2'>
-                            <div className='min-w-[90px]'>Community: </div>
-                            <div className='m-2 w-56'>
-                                <div className="inline-flex bg-blue-50 w-full justify-between">
-                                    <div
-                                        href="#"
-                                        className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md"
-                                    >
-                                        {
-                                            (postCommunity == "") ? (<text>Choose Community</text>) : (<text>{postCommunity}</text>)
-                                        }
-
-                                    </div>
-
-                                    <div className="relative">
-                                        <button
-                                            onClick={() => setShowDropdown(!showDropdown)}
-                                            type="button"
-                                            className="inline-flex items-center justify-center h-full px-2 text-gray-600 border-l border-white-50 hover:text-gray-700 rounded-r-md hover:bg-gray-50"
+                        {!props.community && (
+                            <div className='flex items-center px-2'>
+                                <div className='min-w-[90px]'>Community: </div>
+                                <div className='m-2 w-56'>
+                                    <div className="inline-flex bg-blue-50 w-full justify-between">
+                                        <div
+                                            href="#"
+                                            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-l-md"
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="w-4 h-4"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                strokeWidth={2}
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M19 9l-7 7-7-7"
-                                                />
-                                            </svg>
-                                        </button>
+                                            {
+                                                (postCommunity == "") ? (<text>Choose Community</text>) : (<text>{postCommunity}</text>)
+                                            }
 
-                                        <div className={` ${!showDropdown && `hidden`} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 shadow-lg`}>
-                                            <div className="p-2">
-                                                {rows}
+                                        </div>
+
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => setShowDropdown(!showDropdown)}
+                                                type="button"
+                                                className="inline-flex items-center justify-center h-full px-2 text-gray-600 border-l border-white-50 hover:text-gray-700 rounded-r-md hover:bg-gray-50"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="w-4 h-4"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    strokeWidth={2}
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M19 9l-7 7-7-7"
+                                                    />
+                                                </svg>
+                                            </button>
+
+                                            <div className={` ${!showDropdown && `hidden`} absolute right-0 z-10 w-56 mt-4 origin-top-right bg-white border border-gray-100 shadow-lg`}>
+                                                <div className="p-2">
+                                                    {rows}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {/* {
-                            imageBoxOpen && (
-                                <div className='flex items-center px-2'>
-                                    <div className='min-w-[90px]'>Image: </div>
-                                    <input
-                                        className='m-2 flex-1 bg-blue-50 outline-none p-2'
-                                        onChange={(e) => setPostImage(e.target.value)}
-                                        placeholder="Enter Image URL..."
-                                    />
-                                    <div>
-                                        <img src={postImage} alt="Image to pe previewed" />
-                                    </div>
-                                </div>
-                            )
-                        } */}
+                        )}
+
                         {
                             uploadImageHook && (
                                 <div className='flex items-center px-2'>
@@ -239,17 +230,17 @@ function PostBox(props) {
                                         accept='image/*'
                                         className='m-2 flex-1 bg-blue-50 outline-none p-2'
                                         onChange={uploadMedia}
-                                      
+
 
                                     />
                                     {/* <a onClick={removeMedia}>Remove Pic</a> */}
-                                    <svg  onClick={removeMedia}  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                                    <svg onClick={removeMedia} class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                                 </div>
                             )
                         }
-                        {isOpen&&(<div>
-                                        <img src={imagePreviewing} className = "m-auto w-1/3 h-1/3" alt="Image to pe previewed" />
-                                    </div>)}
+                        {isOpen && (<div>
+                            <img src={imagePreviewing} className="m-auto w-1/3 h-1/3" alt="Image to pe previewed" />
+                        </div>)}
                         {
                             (postCommunity) && (uploadImageHook || postBody) && (
                                 <div className='pt-5'>
