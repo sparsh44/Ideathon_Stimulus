@@ -100,8 +100,7 @@ function PostBox(props) {
                         title: postTitle,
                         content: postBody,
                         attachment_url: postImage,
-                        clubName: postCommunity,
-                        postedBy:props.username
+                        clubName: postCommunity
                     }
                 )
 
@@ -210,15 +209,17 @@ function PostBox(props) {
                         </div>
                         {
                             imageBoxOpen && (
-                                <div className='flex items-center px-2'>
-                                    <div className='min-w-[90px]'>Image: </div>
-                                    <input
-                                        className='m-2 flex-1 bg-blue-50 outline-none p-2'
-                                        onChange={(e) => setPostImage(e.target.value)}
-                                        placeholder="Enter Image URL..."
-                                    />
+                                <div className = "mt-1 ml-2">
+                                    <div className = "flex">
+                                        <div className='min-w-[90px] mt-3'>Image: </div>
+                                        <input
+                                            className='m-2 flex-1 bg-blue-50 outline-none p-2 w-auto'
+                                            onChange={(e) => setPostImage(e.target.value)}
+                                            placeholder="Enter Image URL..."
+                                        />
+                                    </div>
                                     <div>
-                                        <img src={postImage} alt="Image to pe previewed" />
+                                        <img src={postImage} className = "flex w-1/3 h-1/3 m-auto mt-2" alt="Image to pe previewed" />
                                     </div>
                                 </div>
                             )
@@ -239,10 +240,9 @@ function PostBox(props) {
                                     
                                 </div>
                             )
-
                         }
                         {isOpen&&(<div>
-                                        <img src={imagePreviewing} alt="Image to pe previewed" />
+                                        <img src={imagePreviewing} className = "m-auto w-1/3 h-1/3" alt="Image to pe previewed" />
                                     </div>)}
                         {
                             (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
