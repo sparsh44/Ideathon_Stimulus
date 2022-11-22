@@ -12,7 +12,7 @@ function PostBox(props) {
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
     const [postImage, setPostImage] = useState("");
-    const [postCommunity, setPostCommunity] = useState("");
+    const [postCommunity, setPostCommunity] = props.community ? useState(props.community) : useState("")
     const [imageBoxOpen, setImageBoxOpen] = useState(false);
     const [uploadImageHook, setUploadImageHook] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -142,7 +142,6 @@ function PostBox(props) {
     });
     // console.log(rows);
     // console.log("rows");
-
 
     return (
         <form className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
