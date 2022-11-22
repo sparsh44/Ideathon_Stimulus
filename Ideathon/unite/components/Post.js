@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PostData from '../assets/PostData'
 import MyAvatar from './MyAvatar'
 import TimeAgo from 'react-timeago'

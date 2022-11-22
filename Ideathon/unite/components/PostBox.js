@@ -155,8 +155,8 @@ function PostBox(props) {
                     placeholder="Create a post by entering the Title..."
                 />
                 <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
-                <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
-                />
+                {/* <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
+                /> */}
             </div>
             {
                 ((!!postTitle) && (
@@ -215,7 +215,7 @@ function PostBox(props) {
                                 </div>
                             </div>
                         </div>
-                        {
+                        {/* {
                             imageBoxOpen && (
                                 <div className='flex items-center px-2'>
                                     <div className='min-w-[90px]'>Image: </div>
@@ -229,7 +229,7 @@ function PostBox(props) {
                                     </div>
                                 </div>
                             )
-                        }
+                        } */}
                         {
                             uploadImageHook && (
                                 <div className='flex items-center px-2'>
