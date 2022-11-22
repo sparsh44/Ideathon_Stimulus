@@ -29,7 +29,7 @@
     "components/Navbar.js",
     "components/Sidebar.js",
     "components/PostBox.js"
-  ],
+, "components/Post.js"  ],
   "exclude": [
     "node_modules"
   ]

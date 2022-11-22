@@ -15,11 +15,13 @@ function PostBox(props) {
     const [showDropdown, setShowDropdown] = useState(false);
     const [loading, setLoading] = useState(true);
     const [imagePreviewing, setImagePreviewing] = useState();
+    const [isOpen, setOpen] = useState(false);
     const [uploading, setUploading] = useState(false)
     const supabase = useSupabaseClient()
     const clubNames = props.clubName;
-
-
+    
+    
+    const toggleMenu = () => setOpen(!isOpen);
 
     const previewImage = (e) => {
         setImagePreviewing(URL.createObjectURL(e.target.files[0]));
@@ -49,7 +51,10 @@ function PostBox(props) {
                 throw uploadError
             }
             else {
+                alert("image upl");
                 setPostImage(filePath);
+                toggleMenu();
+              
                 // alert("File Uploaded");
             }
 
@@ -67,6 +72,19 @@ function PostBox(props) {
     const uploadURL = () => {
         setUploadImageHook("")
         setImageBoxOpen(!imageBoxOpen)
+    }
+    const rem=async()=>{
+        const { data, error } = await supabase.storage.from('media').remove([postImage]);
+        setPostImage("");
+    }
+    const removeMedia= ()=>{
+       
+        setUploadImageHook(false);
+     
+        toggleMenu();
+        setImagePreviewing();
+        rem();
+     
     }
 
 
@@ -216,13 +234,15 @@ function PostBox(props) {
                                         disabled={uploading}
 
                                     />
-                                    <div>
-                                        <img src={imagePreviewing} alt="Image to pe previewed" />
-                                    </div>
+                                    <a onClick={removeMedia}>Remove Pic</a>
+                                    
                                 </div>
                             )
 
                         }
+                        {isOpen&&(<div>
+                                        <img src={imagePreviewing} alt="Image to pe previewed" />
+                                    </div>)}
                         {
                             (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
                                 <div className='pt-5'>
