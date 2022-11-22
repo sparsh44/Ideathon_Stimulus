@@ -20,8 +20,8 @@ function Post(props) {
                     <h2 className='text-xl font-semibold'>{props.post.title}</h2>
                     <p className='mt-2 text-sm font-light'>{props.post.body}</p>
                 </div>
-                <img className='w-full' src={props.post.image} alt={props.post.title} />
-                <div className='flex space-x-4 text-gray-400 justify-between'>
+                <img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+                {/* <div className='flex space-x-4 text-gray-400 justify-between'>
                     <div className='flex'>
                         <div className='postButtons'>
                             <HeartIcon className='h-6 w-6' />
@@ -40,7 +40,7 @@ function Post(props) {
                         <DotsHorizontalIcon className='h-6 w-6' />
                         <p className='hidden sm:inline'>{props.post.comment.likes} More</p>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )
