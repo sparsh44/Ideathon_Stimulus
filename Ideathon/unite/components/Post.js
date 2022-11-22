@@ -5,6 +5,8 @@ import TimeAgo from 'react-timeago'
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
+import { useState } from 'react'
+import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const URL_REGEX =
 	/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
@@ -27,14 +29,14 @@ function Text({content}) {
 	);
 }
 function Post(props) {
-
+    
     return (
         <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400'>
             <div className='p-3 pb-1'>
                 <div className='flex items-center space-x-2'>
                     <MyAvatar avatar_url="" />
                     <p className='text-xc text-gray-400'>
-                        <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.community}</span> · Posted by {props.post.user} 55min ago
+                        <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} 55min ago
                     </p>
                 </div>
                 <div className='py-4'>

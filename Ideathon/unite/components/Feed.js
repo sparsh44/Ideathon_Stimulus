@@ -27,7 +27,7 @@ function Feed(props) {
             {
                 
                 posts.map(post => 
-                    <Post post={post}/>
+                    <Post post={post} />
                 )
             }
         </div>
