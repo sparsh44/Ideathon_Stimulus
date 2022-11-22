@@ -15,7 +15,7 @@ function Navbar(props) {
                     src={CompanyLogo}
                     alt={'Company Logo'} />
             </div>
-            <div className="mx-7 flex item-center items-center xl:min-w-[300px]">
+            <div className="mx-5 flex item-center items-center xl:min-w-[300px]">
                 <FilterIcon className="h-6 w-6" />
                 <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
                 <ChevronDownIcon className="h-6 w-6 cursor-pointer" />
