@@ -100,7 +100,8 @@ function PostBox(props) {
                         title: postTitle,
                         content: postBody,
                         attachment_url: postImage,
-                        clubName: postCommunity
+                        clubName: postCommunity,
+                        postedBy:props.username
                     }
                 )
 
