@@ -2,7 +2,7 @@ const PostData = [
     {
         id: 1,
         title: "Top 5 VS Code extensions!",
-        body: "Bracket Pair Colorizer, Better Comments, Relative Path, Better Comments, and Icons.",
+        body: "https://www.youtube.com/ Bracket Pair Colorizer, Better Comments, Relative Path, Better Comments, and Icons.",
         image: "https://images.unsplash.com/photo-1590130382404-36dcbb666a3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1156&q=80",
         user: "Gopal Verma",
         community: "ACM-CSS",
