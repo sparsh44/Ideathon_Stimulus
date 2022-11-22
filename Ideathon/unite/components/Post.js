@@ -45,8 +45,8 @@ function Post(props) {
                     <Text content={props.post.content} />
                 </div>
              
-
-<img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+            {props.post.attachment_url?(< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+):(<div/>)}
 
                 
                 {/* <div className='flex space-x-4 text-gray-400 justify-between'>

@@ -56,7 +56,7 @@ function PostBox(props) {
                 
                 setPostImage(filePath);
                 
-                alert("image upl");
+                alert("Image Loaded");
                 toggleMenu();
                 // alert("File Uploaded");
             }
@@ -84,7 +84,7 @@ function PostBox(props) {
      
         toggleMenu();
         setImagePreviewing();
-        alert("Post Removed");
+        alert("Image Removed");
         if(error){
             alert(error);
             console.log(error);
@@ -114,7 +114,7 @@ function PostBox(props) {
                 router.reload();
             }
             
-            if (error) throw error
+            // if (error) throw error
 
         } catch (error) {
             alert(error);
@@ -242,8 +242,8 @@ function PostBox(props) {
                                       
 
                                     />
-                                    <a onClick={removeMedia}>Remove Pic</a>
-                                    
+                                    {/* <a onClick={removeMedia}>Remove Pic</a> */}
+                                    <svg  onClick={removeMedia}  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                                 </div>
                             )
                         }
