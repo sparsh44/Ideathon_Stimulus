@@ -69,10 +69,6 @@ function PostBox(props) {
         setImageBoxOpen("")
         setUploadImageHook(!uploadImageHook)
     }
-    const uploadURL = () => {
-        setUploadImageHook("")
-        setImageBoxOpen(!imageBoxOpen)
-    }
     const rem=async()=>{
         const { data, error } = await supabase.storage.from('media').remove([postImage]);
         setPostImage("");
@@ -100,7 +96,8 @@ function PostBox(props) {
                         title: postTitle,
                         content: postBody,
                         attachment_url: postImage,
-                        clubName: postCommunity
+                        clubName: postCommunity,
+                        postedBy:props.username
                     }
                 )
 
@@ -147,8 +144,7 @@ function PostBox(props) {
                     placeholder="Create a post by entering the Title..."
                 />
                 <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
-                <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
-                />
+                
             </div>
             {
                 ((!!postTitle) && (
@@ -207,23 +203,7 @@ function PostBox(props) {
                                 </div>
                             </div>
                         </div>
-                        {
-                            imageBoxOpen && (
-                                <div className = "mt-1 ml-2">
-                                    <div className = "flex">
-                                        <div className='min-w-[90px] mt-3'>Image: </div>
-                                        <input
-                                            className='m-2 flex-1 bg-blue-50 outline-none p-2 w-auto'
-                                            onChange={(e) => setPostImage(e.target.value)}
-                                            placeholder="Enter Image URL..."
-                                        />
-                                    </div>
-                                    <div>
-                                        <img src={postImage} className = "flex w-1/3 h-1/3 m-auto mt-2" alt="Image to pe previewed" />
-                                    </div>
-                                </div>
-                            )
-                        }
+        
                         {
                             uploadImageHook && (
                                 <div className='flex items-center px-2'>
@@ -245,7 +225,7 @@ function PostBox(props) {
                                         <img src={imagePreviewing} className = "m-auto w-1/3 h-1/3" alt="Image to pe previewed" />
                                     </div>)}
                         {
-                            (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
+                            (postCommunity) && (uploadImageHook || postBody) && (
                                 <div className='pt-5'>
                                     <button onClick={() => onSubmit({ postTitle, postBody, postImage, postCommunity })} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
                                 </div>
