@@ -4,7 +4,7 @@ import React from 'react'
 import CommunityData from '../assets/CommunityData'
 import MyAvatar from './MyAvatar'
 
-function Community() {
+function CommunitySidebar() {
     return (
         <div>
             {
@@ -26,4 +26,4 @@ function Community() {
     )
 }
 
-export default Community
+export default CommunitySidebar
