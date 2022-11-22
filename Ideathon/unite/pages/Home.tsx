@@ -21,7 +21,6 @@ const Home: NextPage = () => {
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
     const [full_name, setfullname] = useState(null)
-
     const [avatar_url, setAvatarUrl] = useState(null)
     const [clubNames, setClubNames] = useState(null)
     const [allPosts, setAllPosts] = useState(null)
