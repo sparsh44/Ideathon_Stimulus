@@ -8,9 +8,10 @@ import PostAvatar from './PostAvatar'
 
 const URL_REGEX =
 	/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-
-function Text({ content }) {
-	const words = content.split(' ');
+    
+function Text({content}) {
+    content = String(content)
+	const words = content.split(" ");
 	return (
 		<p className='mt-2 text-sm font-light'>
 			{words.map((word) => {
@@ -38,7 +39,7 @@ function Post(props) {
                 </div>
                 <div className='py-4'>
                     <h2 className='text-xl font-semibold'>{props.post.title}</h2>
-                    <Text content={props.post.body} />
+                    <Text content= {props.post.content} />
                 </div>
                 <img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
                 {/* <div className='flex space-x-4 text-gray-400 justify-between'>
