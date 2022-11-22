@@ -7,35 +7,30 @@ import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+const URL_REGEX =
+/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+
+function Text({content}) {
+
+    content = String(content)
+    const words = content.split(" ");
+    return (
+        <p className='mt-2 text-sm font-light'>
+            {words.map((word) => {
+                return word.match(URL_REGEX) ? (
+                    <>
+                        <a href={word} className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{word}</a>{' '}
+                    </>
+                ) : (
+                    word + ' '
+                );
+            })}
+        </p>
+    );
+}
 
 function Post(props) {
-
-
-
-    const [postUrl, setPostUrl] = useState(false)
-    const URL_REGEX =
-        /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-
-
-    function Text({ content }) {
-
-        content = String(content)
-        const words = content.split(" ");
-        return (
-            <p className='mt-2 text-sm font-light'>
-                {words.map((word) => {
-                    return word.match(URL_REGEX) ? (
-                        <>
-                            <a href={word} className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{word}</a>{' '}
-                        </>
-                    ) : (
-                        word + ' '
-                    );
-                })}
-            </p>
-        );
-    }
- 
+   
     return (
         <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400'>
             <div className='p-3 pb-1'>
@@ -49,8 +44,11 @@ function Post(props) {
                     <h2 className='text-xl font-semibold'>{props.post.title}</h2>
                     <Text content={props.post.content} />
                 </div>
-                <img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+             
 
+<img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+
+                
                 {/* <div className='flex space-x-4 text-gray-400 justify-between'>
                     <div className='flex'>
                         <div className='postButtons'>

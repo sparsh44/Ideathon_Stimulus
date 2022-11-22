@@ -3,9 +3,11 @@ import MyAvatar from './MyAvatar'
 import { PhotographIcon } from '@heroicons/react/outline'
 import { LinkIcon } from '@heroicons/react/outline'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/router'
 // import { useForm } from "react-hook-form";
 function PostBox(props) {
     const user = props.user;
+    const router=useRouter();
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
     const [postImage, setPostImage] = useState("");
@@ -37,7 +39,7 @@ function PostBox(props) {
             }
 
             const file = event.target.files[0]
-            const fileExt = file.name.split('.').pop()
+            const fileExt = file.name
             const fileName = `${user.id}.${fileExt}`
             const filePath = `${fileName}`
 
@@ -51,10 +53,11 @@ function PostBox(props) {
                 throw uploadError
             }
             else {
-                alert("image upl");
+                
                 setPostImage(filePath);
+                
+                alert("image upl");
                 toggleMenu();
-              
                 // alert("File Uploaded");
             }
 
@@ -69,17 +72,23 @@ function PostBox(props) {
         setImageBoxOpen("")
         setUploadImageHook(!uploadImageHook)
     }
-    const rem=async()=>{
+    // const uploadURL = () => {
+    //     setUploadImageHook("")
+    //     setImageBoxOpen(!imageBoxOpen)
+    // }
+
+    const removeMedia= async()=>{
         const { data, error } = await supabase.storage.from('media').remove([postImage]);
         setPostImage("");
-    }
-    const removeMedia= ()=>{
-       
         setUploadImageHook(false);
      
         toggleMenu();
         setImagePreviewing();
-        rem();
+        alert("Post Removed");
+        if(error){
+            alert(error);
+            console.log(error);
+        }
      
     }
 
@@ -88,7 +97,7 @@ function PostBox(props) {
         try {
             setLoading(true)
 
-            const { data, error } = await supabase
+            const {error } = await supabase
                 .from('posts')
                 .insert(
                     {
@@ -100,13 +109,15 @@ function PostBox(props) {
                         postedBy:props.username
                     }
                 )
-
-            if (data) {
+            if(!error){
                 alert("Post created")
+                router.reload();
             }
+            
             if (error) throw error
 
         } catch (error) {
+            alert(error);
             console.log(error)
         } finally {
             setLoading(false)
@@ -144,7 +155,8 @@ function PostBox(props) {
                     placeholder="Create a post by entering the Title..."
                 />
                 <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
-                
+                {/* <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
+                /> */}
             </div>
             {
                 ((!!postTitle) && (
@@ -203,7 +215,21 @@ function PostBox(props) {
                                 </div>
                             </div>
                         </div>
-        
+                        {/* {
+                            imageBoxOpen && (
+                                <div className='flex items-center px-2'>
+                                    <div className='min-w-[90px]'>Image: </div>
+                                    <input
+                                        className='m-2 flex-1 bg-blue-50 outline-none p-2'
+                                        onChange={(e) => setPostImage(e.target.value)}
+                                        placeholder="Enter Image URL..."
+                                    />
+                                    <div>
+                                        <img src={postImage} alt="Image to pe previewed" />
+                                    </div>
+                                </div>
+                            )
+                        } */}
                         {
                             uploadImageHook && (
                                 <div className='flex items-center px-2'>
@@ -213,7 +239,7 @@ function PostBox(props) {
                                         accept='image/*'
                                         className='m-2 flex-1 bg-blue-50 outline-none p-2'
                                         onChange={uploadMedia}
-                                        disabled={uploading}
+                                      
 
                                     />
                                     <a onClick={removeMedia}>Remove Pic</a>
