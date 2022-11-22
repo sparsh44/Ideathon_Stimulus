@@ -17,6 +17,7 @@ function Feed(props) {
 
         }); */}
         var posts=props.posts||[];
+      console.log(posts);
     // var rows=[];
     // var arr=posts||[];
     // arr.forEach(post => {
@@ -25,7 +26,7 @@ function Feed(props) {
     return (
         <div className='mt-5 space-y-4'>
             {
-                
+             
                 posts.map(post => 
                     <Post post={post} />
                 )
