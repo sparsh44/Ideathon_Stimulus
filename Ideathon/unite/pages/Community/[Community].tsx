@@ -10,13 +10,19 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 function Community() {
 
+
+
     useEffect(() => {
         allPost();
     })
+
     const [posts, setPost] = useState([])
-    const {
-        query: { topic },
-    } = useRouter();
+
+//  following query to fetch community using next router
+    // const {
+    //     query: { community },
+    // } = useRouter();
+
     const supabase = useSupabaseClient()
     const allPost = async () => {
         const { data, error } = await supabase.from('posts').select('*');
@@ -41,7 +47,10 @@ function Community() {
                 </div>
             </div>
             <div className='mx-auto mt-5 max-w-5xl pb-10'>
-                <PostBox />
+                <div className='flex my-7 mx-auto max-w-5xl'>
+                    <PostBox community={"ACM CSS"} />
+                    {/* <PostBox community={community as string} /> */}
+                </div>
                 <Feed posts={posts} />
             </div>
         </div>
