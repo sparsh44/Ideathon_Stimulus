@@ -6,24 +6,15 @@ import PostBox from '../../components/PostBox';
 import Feed from '../../components/Feed';
 import { useState, useEffect } from 'react';
 import PostData from '../../assets/PostData';
-import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 function Community() {
-    useEffect(()=>{
-        allPost();
-})
-    const [posts,setPost]=useState([])
     const {
         query: { topic },
     } = useRouter();
-    const supabase = useSupabaseClient()
-    const allPost= async()=>{
-    const {data,error}= await supabase.from('posts').select('*');
-    console.log(data);
-    }
+
     return (
-        <div className={`h-24 bg-red-400 p-8`}>
-            <div className='-mx-8 mt-10 bg-white'>
+        <div className={` h-36 bg-red-400 p-8`}>
+            <div className='-mx-8 mt-28 bg-white'>
                 <div className='mx-auto flex max-w-5xl items-center space-x-4 pb-5'>
                     <div className='-mt-5 ml-0'>
                         <CommunityAvatar />
@@ -36,9 +27,9 @@ function Community() {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='mx-auto mt-5 max-w-5xl pb-10'>
                 <PostBox />
-                <Feed />
+                <Feed posts={posts} />
             </div>
         </div>
     )

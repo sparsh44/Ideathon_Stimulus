@@ -155,8 +155,8 @@ function PostBox(props) {
                     placeholder="Create a post by entering the Title..."
                 />
                 <PhotographIcon className={`h-6 cursor-pointer text-gray-400 ${uploadImageHook && `text-blue-200`}`} onClick={uploadImage} />
-                {/* <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`} */}
-                
+                <LinkIcon onClick={uploadURL} className={`h-6 cursor-pointer text-gray-400 ${imageBoxOpen && `text-blue-200`}`}
+                />
             </div>
             {
                 ((!!postTitle) && (
@@ -215,7 +215,7 @@ function PostBox(props) {
                                 </div>
                             </div>
                         </div>
-                        {/* {
+                        {
                             imageBoxOpen && (
                                 <div className='flex items-center px-2'>
                                     <div className='min-w-[90px]'>Image: </div>
@@ -229,7 +229,7 @@ function PostBox(props) {
                                     </div>
                                 </div>
                             )
-                        } */}
+                        }
                         {
                             uploadImageHook && (
                                 <div className='flex items-center px-2'>
@@ -246,13 +246,12 @@ function PostBox(props) {
                                     
                                 </div>
                             )
-
                         }
                         {isOpen&&(<div>
-                                        <img src={imagePreviewing} alt="Image to pe previewed" />
+                                        <img src={imagePreviewing} className = "m-auto w-1/3 h-1/3" alt="Image to pe previewed" />
                                     </div>)}
                         {
-                            (postCommunity) && (imageBoxOpen || uploadImageHook || postBody) && (
+                            (postCommunity) && (uploadImageHook || postBody) && (
                                 <div className='pt-5'>
                                     <button onClick={() => onSubmit({ postTitle, postBody, postImage, postCommunity })} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
                                 </div>

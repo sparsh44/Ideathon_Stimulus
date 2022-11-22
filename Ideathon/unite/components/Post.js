@@ -5,7 +5,7 @@ import TimeAgo from 'react-timeago'
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 const URL_REGEX =
 /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
@@ -42,7 +42,7 @@ function Post(props) {
                 </div>
                 <div className='py-4'>
                     <h2 className='text-xl font-semibold'>{props.post.title}</h2>
-                    <Text content= {props.post.content} />
+                    <Text content={props.post.content} />
                 </div>
              
 
