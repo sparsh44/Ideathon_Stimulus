@@ -6,6 +6,7 @@ import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, Sparkles
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
 
+
 function Navbar(props) {
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
@@ -38,7 +39,7 @@ function Navbar(props) {
             <div className='ml-5 flex items-center lg:hidden text-gray-500'>
                 <MenuIcon className='icon' />
             </div>
-            <div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
+            <Link href='/ProfilePage'><div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
                 <div className='relative h-5 w-5 flex-shrink-0 '>
                 {props.avatar_url ?
                 (<Image
@@ -54,7 +55,7 @@ function Navbar(props) {
                 )}
                 </div>
                 <p className='text-gray-400'>{props.username}</p>
-            </div>
+            </div></Link>
         </div>
        
     )
