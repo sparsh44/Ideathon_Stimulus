@@ -3,25 +3,41 @@ import Link from 'next/link'
 import React from 'react'
 import CommunityData from '../assets/CommunityData'
 import MyAvatar from './MyAvatar'
+function CommunitySidebar(props) {
+    
+    const clubNames = props.clubName;
+    var rows = [];
+    var arr = clubNames || [];
+    // console.log(clubNames);
+    arr.forEach(club => {
+        rows.push(<div>
+            <div className='flex items-center space-x-2 border-t bg-white px-4 py-2 last:rounded-b justify-between'>
+                 <div className='flex'>         
+            <MyAvatar />
+            <div
+            onClick={() => handleClick(club.clubName)}
+            className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700"
+        >
+            {club.clubName}
+        </div>
+        </div>
+            <Link href={`Community/${club.clubName}`}>
+                <div className='cursor-pointer rounded-full bg-blue-500 px-3 text-white'>Join</div>
+            </Link>
+        </div>
+        
+        </div>)
 
-function CommunitySidebar() {
+    });
     return (
         <div>
-            {
-                CommunityData.map((e) => {
-                    return (
-                        <div className='flex items-center space-x-2 border-t bg-white px-4 py-2 last:rounded-b'>
-                            <p>{e.id}</p>
-                            <ChevronUpIcon className='h-4 w-4 flex-shrink-0 text-green-400' />
-                            <MyAvatar />
-                            <p className='flex-1 truncate'>c/{e.title}</p>
-                            <Link href="#">
-                                <div className='cursor-pointer rounded-full bg-blue-500 px-3 text-white'>Join</div>
-                            </Link>
-                        </div>
-                    )
-                })
-            }
+          
+                        
+                <div className="p-2">
+                    {rows}
+                </div>
+                    
+            
         </div>
     )
 }
