@@ -131,7 +131,7 @@ const Home: NextPage = () => {
                 </div>
                 <div className='flex my-7 mx-auto max-w-5xl'>
                     <Feed posts={allPosts} />
-                    <div className='sticky top-5 mt-5 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
+                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
                         <COmmunity />
                     </div>

@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import PostData from '../../assets/PostData';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
-function Community() {
+function CommunityPage() {
     const { query } = useRouter()
 
     useEffect(() => {
@@ -53,4 +53,4 @@ function Community() {
     )
 }
 
-export default Community
+export default CommunityPage
