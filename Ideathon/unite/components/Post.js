@@ -7,10 +7,11 @@ import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import Link from 'next/link'
 const URL_REGEX =
-/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
-function Text({content}) {
+function Text({ content }) {
 
     content = String(content)
     const words = content.split(" ");
@@ -30,25 +31,27 @@ function Text({content}) {
 }
 
 function Post(props) {
-   
+
     return (
         <div className='flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400'>
             <div className='p-3 pb-1'>
                 <div className='flex items-center space-x-2'>
                     <MyAvatar avatar_url="" />
-                    <p className='text-xc text-gray-400'>
-                        <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} 55min ago
-                    </p>
+                    <Link href={`/Community/${props.post.clubName}`}>
+                        <p className='text-xc text-gray-400'>
+                            <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} 55min ago
+                        </p>
+                    </Link>
                 </div>
                 <div className='py-4'>
                     <h2 className='text-xl font-semibold'>{props.post.title}</h2>
                     <Text content={props.post.content} />
                 </div>
-             
-            {props.post.attachment_url?(< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
-):(<div/>)}
 
-                
+                {props.post.attachment_url ? (< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+                ) : (<div />)}
+
+
                 {/* <div className='flex space-x-4 text-gray-400 justify-between'>
                     <div className='flex'>
                         <div className='postButtons'>

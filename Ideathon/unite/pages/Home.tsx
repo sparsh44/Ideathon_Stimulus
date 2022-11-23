@@ -126,7 +126,7 @@ const Home: NextPage = () => {
                 <Navbar username={username} avatar_url={avatar_url} />
             </div>
             <div className=''>
-                <div className='flex my-7 mx-auto max-w-5xl'>
+                <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-5xl'>
                     <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} session={session} user={user} />
                 </div>
                 <div className='flex my-7 mx-auto max-w-5xl'>
