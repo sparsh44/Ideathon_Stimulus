@@ -1,7 +1,7 @@
 import React from 'react'
-import Account from "./Account";
-
-function ProfilePage(props) {
+import Account from "../components/Account";
+function ProfilePage() {
+    
     return (
         <div className="flex h-screen w-full bg-gray-50">
             <div className="flex w-full h-screen items-center justify-center  lg:w-1/2">
@@ -16,7 +16,7 @@ function ProfilePage(props) {
                         Welcome! Please Update your Details.
                     </p>
                     <div className="mt-8 ">
-                        <Account session={props.session} />
+                        <Account/>
                     </div>
                 </div>
             </div>

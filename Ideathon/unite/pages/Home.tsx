@@ -162,7 +162,7 @@ const Home: NextPage = () => {
                     <Feed posts={allPosts} />
                     <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
-                        <CommunitySidebar clubName={allClubs}/>
+                        <CommunitySidebar clubName={allClubs} adminList={clubNames} />
                     </div>
                 </div>
             </div>

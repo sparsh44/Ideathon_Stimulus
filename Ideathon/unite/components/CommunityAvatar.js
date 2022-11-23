@@ -2,8 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 
 function CommunityAvatar(props) {
+    
     return (
-        <div className='relative h-20 w-20 rounded-full border-gray-300 bg-white'>
+        <div className='relative h-10 w-10 rounded-full border-gray-300 bg-white'>
             {props.avatar_url ?
                 (<Image
                     layout='fill'
