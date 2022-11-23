@@ -34,7 +34,7 @@ function Post(props) {
 
     return (
 
-        <Link href={`/Post/DummyPostId0123456789`}>
+        <Link href={`/Post/${props.post.post_id}`}>
             <div className='flex cursor-pointer mt-5 rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400'>
                 <div className='p-3 pb-1'>
                     <div className='flex items-center space-x-2'>
