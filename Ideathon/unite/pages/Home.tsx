@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Post from '../components/Post'
 import CommunitySidebar from '../components/CommunitySidebar'
+import Link from 'next/link'
 
 
 const Home: NextPage = () => {
@@ -151,9 +152,11 @@ const Home: NextPage = () => {
     return (
 
         <div>
+        
             <div className='  w-full relative'>
-                <Navbar username={username} avatar_url={avatar_url} />
+                <Navbar  userId={user.id} username={username} avatar_url={avatar_url} />
             </div>
+            
             <div className=''>
                 <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-5xl'>
                     <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} session={session} user={user} />

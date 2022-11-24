@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from '../components/Avatar'
-import { createFalse } from 'typescript'
+import { createFalse, isConstructorDeclaration } from 'typescript'
 import { useRouter } from 'next/router'
 
-export default function Account() {
+export default function Account({session}) {
   const router = useRouter();
-  const session = useSession()
-  const supabase = useSupabaseClient()
-  const user = useUser()
+   const supabase = useSupabaseClient()
+   const user=useUser();
+console.log(session);
+
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [full_name, setfullname] = useState(null)
@@ -45,6 +46,8 @@ export default function Account() {
       setLoading(false)
     }
   }
+  console.log(session);
+  console.log(user);
   async function removePhoto() {
 
 

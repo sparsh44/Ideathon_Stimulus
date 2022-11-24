@@ -107,15 +107,16 @@ function PostBox(props) {
                         content: postBody,
                         attachment_url: postImage,
                         clubName: postCommunity,
-                        postedBy: props.username
+                        postedBy: props.username,
+
                     }
                 )
-            if (!error) {
+          
                 alert("Post created")
                 router.reload();
-            }
+         
 
-            // if (error) throw error
+          
 
         } catch (error) {
             alert(error);
