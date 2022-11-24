@@ -13,20 +13,19 @@ function PostPage() {
     console.log(query);
 
     //PostId
-    const [post,setPost]=useState();
+    const [post,setPost]=useState([]);
     const posts = async ()=>{
-        let{data,error}=await supabase.from('posts').select('*').eq('post_id',query.PostId).single();
+        let{data,error}=await supabase.from('posts').select('*').eq('post_id',query.PostId);
         if(error){
             throw error;
         }
-        setPost(data);
+        setPost(data[0]);
     }
     console.log(post);
 
     return (
-        // show post with the with query.post_id
-        // <Post />
-        <div></div>
+        // <div></div>
+         <Post post={post}/>     
     )
 }
 

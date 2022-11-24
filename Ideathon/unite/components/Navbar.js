@@ -39,7 +39,7 @@ function Navbar(props) {
             <div className='ml-5 flex items-center lg:hidden text-gray-500'>
                 <MenuIcon className='icon' />
             </div>
-            <Link href='/ProfilePage'><div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
+            <Link href={'/ProfilePage'}><div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
                 <div className='relative h-5 w-5 flex-shrink-0 '>
                 {props.avatar_url ?
                 (<Image
