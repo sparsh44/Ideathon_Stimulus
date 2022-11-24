@@ -21,9 +21,9 @@ function Navbar(props) {
                 <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
                 <ChevronDownIcon className="h-6 w-6 cursor-pointer" />
             </div>
-            <form className="flex flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">
+            <form className="flex  flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">
                 <SearchIcon className="h-6 w-6 text-gray-400" />
-                <input className="flex-1 bg-transparent outline-none" type="text" placeholder="Search Unite" />
+                <input className="flex w- bg-transparent outline-none hidden md:flex" type="text" placeholder="Search Unite" />
                 <button type="submit" hidden />
             </form>
             <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
@@ -33,7 +33,7 @@ function Navbar(props) {
                 <hr className="h-10 border border-gray-100" />
                 <ChatIcon className="icon" />
                 <BellIcon className="icon" />
-                <PlusIcon className="icon" />
+                <PlusIcon className="icon" />a
                 <SpeakerphoneIcon className="icon" />
             </div>
             <div className='ml-5 flex items-center lg:hidden text-gray-500'>
