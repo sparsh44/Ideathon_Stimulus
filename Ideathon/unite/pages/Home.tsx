@@ -97,7 +97,7 @@ const Home: NextPage = () => {
             let { data, error, status } = await supabase
                 .from('clubs')
                 .select(`clubName`)
-                
+
 
             if (error && status !== 406) {
                 throw error
@@ -154,15 +154,19 @@ const Home: NextPage = () => {
             <div className='  w-full relative'>
                 <Navbar username={username} avatar_url={avatar_url} />
             </div>
-            <div className=''>
+            <div>
                 <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-5xl'>
                     <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} session={session} user={user} />
                 </div>
                 <div className='flex my-7 mx-auto max-w-5xl'>
-                    <Feed posts={allPosts} />
-                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
-                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
-                        <CommunitySidebar clubName={allClubs}/>
+                    <div className='flex justify-between'>
+                        <div className='flex-1'>
+                            <Feed posts={allPosts} />
+                        </div>
+                        <div className='sticky top-20 mt-5  hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
+                            <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
+                            <CommunitySidebar clubName={allClubs} />
+                        </div>
                     </div>
                 </div>
             </div>
