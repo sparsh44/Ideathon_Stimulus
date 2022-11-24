@@ -1,6 +1,10 @@
 import React from 'react'
 import Account from "../components/Account";
+import { useUser, useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { createModuleResolutionCache } from 'typescript';
 function ProfilePage() {
+    const session = useSession();
+    console.log(session);
     
     return (
         <div className="flex h-screen w-full bg-gray-50">
@@ -16,7 +20,7 @@ function ProfilePage() {
                         Welcome! Please Update your Details.
                     </p>
                     <div className="mt-8 ">
-                        <Account/>
+                        <Account session={session}/>
                     </div>
                 </div>
             </div>
