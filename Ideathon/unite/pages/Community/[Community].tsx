@@ -19,7 +19,7 @@ function CommunityPage() {
 
     const supabase = useSupabaseClient()
     const allPost = async () => {
-        const { data, error } = await supabase.from('posts').select('*');
+        const { data, error } = await supabase.from('posts').select('*').eq('clubName', query.Community);
         console.log(data);
         setPost(data)
     }
