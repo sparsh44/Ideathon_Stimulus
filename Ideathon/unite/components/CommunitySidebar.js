@@ -4,8 +4,33 @@ import React from 'react'
 import CommunityData from '../assets/CommunityData'
 import CommunityAvatar from './CommunityAvatar'
 import MyAvatar from './MyAvatar'
+import { useState} from 'react'
+import {useSupabaseClient } from '@supabase/auth-helpers-react'
 function CommunitySidebar(props) {
-    
+    const supabase = useSupabaseClient()
+    const [loading, setLoading] = useState(true)
+    const joinClub = async (e) => 
+    {
+        try {
+            setLoading(true)
+            let { error } = await supabase.from('joined_clubs').insert(
+                {
+                    user_id:props.user.id,
+                    clubName: e
+                }
+            )
+            if (error) throw error
+            alert(`You have joined ${e}!`)
+      
+          } catch (error) {
+            alert('Error!')
+            console.log(error)
+          } finally {
+            setLoading(false)
+
+          }
+    }
+
     const clubNames = props.clubName;
     var rows = [];
     var arr = clubNames || [];
@@ -21,9 +46,9 @@ function CommunitySidebar(props) {
             {club.clubName}
         </Link>
         </div>
-            <Link href={`Community/${club.clubName}`}>
-                <div className='cursor-pointer rounded-full bg-blue-500 px-3 text-white'>Join</div>
-            </Link>
+            {/* <Link href={`Community/${club.clubName}`}> */}
+                <button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinClub(club.clubName)}>Join</button>
+            {/* </Link> */}
         </div>
         
         </div>)
