@@ -4,7 +4,8 @@ import { useUser, useSession, useSupabaseClient } from '@supabase/auth-helpers-r
 import { createModuleResolutionCache } from 'typescript';
 function ProfilePage() {
     const session = useSession();
-    console.log(session);
+    const user=useUser();
+    const supabase = useSupabaseClient()
     
     return (
         <div className="flex h-screen w-full bg-gray-50">
@@ -20,7 +21,7 @@ function ProfilePage() {
                         Welcome! Please Update your Details.
                     </p>
                     <div className="mt-8 ">
-                        <Account session={session}/>
+                        <Account session={session} user = {user} supabase = {supabase}/>
                     </div>
                 </div>
             </div>

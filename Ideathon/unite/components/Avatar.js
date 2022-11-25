@@ -71,9 +71,9 @@ export default function Avatar({ uid, url, size, onUpload }) {
         />
       )}
       <div style={{ width: size }}>
-        <label className="button primary block cursor-pointer hover:text-blue-600 hover:underline" htmlFor="single">
+        <button className="button primary block cursor-pointer mt-2 hover:text-blue-600 hover:underline" htmlFor="single">
           {uploading ? 'Uploading ...' : 'Upload'}
-        </label>
+        </button>
         <input
           style={{
             visibility: 'hidden',
