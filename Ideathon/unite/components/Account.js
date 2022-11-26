@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from '../components/Avatar'
-import { createFalse, isConstructorDeclaration } from 'typescript'
 import { useRouter } from 'next/router'
 
-export default function Account({session}) {
+export default function Account({session, user, supabase}) {
   const router = useRouter();
-   const supabase = useSupabaseClient()
-   const user=useUser();
-console.log(session);
-
+  // const user=useUser();
+  // const supabase = useSupabaseClient()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [full_name, setfullname] = useState(null)
-
+  const [email, setEmail] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [userId, setUserId] = useState(null)
   useEffect(() => {
     getProfile()
   }, [session])
@@ -22,7 +20,9 @@ console.log(session);
   async function getProfile() {
     try {
       setLoading(true)
-
+      // console.log(user.id)
+      setUserId(user.id)
+      setEmail(user.email)
       let { data, error, status } = await supabase
         .from('profiles')
         .select(`username, avatar_url,full_name`)
@@ -40,14 +40,14 @@ console.log(session);
         setfullname(data.full_name)
       }
     } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
+      // alert('Error loading user data!')
+      // console.log(error)
     } finally {
       setLoading(false)
     }
   }
-  console.log(session);
-  console.log(user);
+  // console.log(session);
+  // console.log(user);
   async function removePhoto() {
 
 
@@ -105,7 +105,8 @@ console.log(session);
       console.log(error)
     } finally {
       setLoading(false)
-      router.reload()
+      router.push("/")
+      // router.reload()
     }
   }
 
@@ -114,7 +115,7 @@ console.log(session);
     <div className="form-widget">
       <div className="ml-32 w-full rounded-full">
         <Avatar className="rounded-full"
-          uid={user.id}
+          uid={userId}
           url={avatar_url}
           size={150}
           onUpload={(url) => {
@@ -122,13 +123,15 @@ console.log(session);
 
           }}
         />
+    
+        <svg  onClick={removePhoto} class="w-6 h-6 ml-3 mt-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
       </div>
 
 
 
-      <div>
+      <div className='mt-3'>
         <label htmlFor="email" className="ml-1 text-lg font-medium ">Email</label>
-        <input id="email" type="text" className="mb-2 w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent" value={session.user.email} disabled />
+        <input id="email" type="email" className="mb-2 w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent" value={email} disabled />
       </div>
       <div>
         <label htmlFor="username" className="ml-1 text-lg font-medium">Full-Name</label>
@@ -164,9 +167,7 @@ console.log(session);
           <button className="button block mt-6 ml-28 bg-violet-500 p-3 rounded-xl text-white" onClick={() => supabase.auth.signOut()}>
             Sign Out
           </button>
-          <button className="button block mt-6 ml-28 bg-violet-500 p-3 rounded-xl text-white" onClick={removePhoto}>
-            Remove DP
-          </button>
+          
         </div>
       </div>
     </div>

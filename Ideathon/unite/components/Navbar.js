@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 // import styles from '../../styles/Home.module.css'
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
@@ -9,13 +10,15 @@ import SmallCompanyLogo from "../assets/circular_favicon_light.png"
 
 
 function Navbar(props) {
+    const router = useRouter();
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
             <div className='relative h-20 w-32 py-3 hidden sm:inline-flex flex-shrink cursor-pointer '>
                 <Image
                     objectFit="contain"
                     src={CompanyLogo}
-                    alt={'Company Logo'} />
+                    alt={'Company Logo'} 
+                    onClick={() => { router.push("/")}}/>
             </div>
             <div className=' -ml-3 relative h-20 w-20 sm:hidden flex-shrink cursor-pointer '>
                 <Image

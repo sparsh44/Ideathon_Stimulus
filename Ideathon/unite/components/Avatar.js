@@ -55,6 +55,7 @@ export default function Avatar({ uid, url, size, onUpload }) {
 
   return (
     <div>
+    <label style={{cursor:'pointer'}}>
       {avatarUrl ? (
         <img
           src={avatarUrl}
@@ -71,10 +72,8 @@ export default function Avatar({ uid, url, size, onUpload }) {
         />
       )}
       <div style={{ width: size }}>
-        <label className="button primary block cursor-pointer hover:text-blue-600 hover:underline" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
-        </label>
-        <input
+      
+      <input
           style={{
             visibility: 'hidden',
             position: 'absolute',
@@ -85,7 +84,11 @@ export default function Avatar({ uid, url, size, onUpload }) {
           onChange={uploadAvatar}
           disabled={uploading}
         />
+        <button className="button primary block cursor-pointer mt-2 hover:text-blue-600 hover:underline" htmlFor="single" >
+          {uploading ? 'Uploading ...' : 'Upload'}
+        </button>
       </div>
+        </label>
     </div>
   )
 }
