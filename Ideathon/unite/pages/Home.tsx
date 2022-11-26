@@ -26,6 +26,7 @@ const Home: NextPage = () => {
     const [clubNames, setClubNames] = useState(null)
     const [allPosts, setAllPosts] = useState(null)
     const [allClubs, setAllClubs] = useState(null)
+    const [joinedClubs, setJoinedClubs] = useState(null)
 
     useEffect(() => {
         getProfile()
@@ -119,6 +120,37 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
+        getJoinedClubs()
+    }, [session])
+    async function getJoinedClubs() {
+        try {
+            setLoading(true)
+
+            let { data, error, status } = await supabase
+                .from('joined_clubs')
+                .select(`clubName`)
+                .eq('user_id', user.id)
+
+
+            if (error && status !== 406) {
+                throw error
+            }
+
+            if (data) {
+                setJoinedClubs(data)
+                console.log(data)
+                console.log("Joined Clubs Name fetched")
+
+            }
+        } catch (error) {
+            alert('Error loading Joined Clubs!')
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
         getPosts()
     }, [session])
 
@@ -165,7 +197,7 @@ const Home: NextPage = () => {
                     <Feed posts={allPosts} />
                     <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
-                        <CommunitySidebar clubName={allClubs} adminList={clubNames}   session={session} user={user}/>
+                        <CommunitySidebar clubName={allClubs} adminList={clubNames}   session={session} user={user} joinedClubs ={joinedClubs}/>
                     </div>
                 </div>
             </div>
