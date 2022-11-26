@@ -3,6 +3,7 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import Home from "./Home";
 import ProfilePage from '../components/ProfilePage';
+import Navbar from "../components/Navbar";
 
 const customTheme = {
   default: {

@@ -6,27 +6,34 @@ import { useRouter } from 'next/router'
 import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, SparklesIcon, SpeakerphoneIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/outline'
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
+import SmallCompanyLogo from "../assets/circular_favicon_light.png"
 
 
 function Navbar(props) {
     const router = useRouter();
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
-            <div className='relative h-20 w-40 py-1 flex-shrink-0 cursor-pointer'>
+            <div className='relative h-20 w-32 py-3 hidden sm:inline-flex flex-shrink cursor-pointer '>
                 <Image
                     objectFit="contain"
                     src={CompanyLogo}
                     alt={'Company Logo'} 
                     onClick={() => { router.push("/")}}/>
             </div>
-            <div className="mx-5 flex item-center items-center xl:min-w-[300px]">
+            <div className=' -ml-3 relative h-20 w-20 sm:hidden flex-shrink cursor-pointer '>
+                <Image
+                    objectFit="contain"
+                    src={SmallCompanyLogo}
+                    alt={'Company Logo'} />
+            </div>
+            <div className="mx-5 flex item-center items-center xl:min-w-[300px] hidden sm:inline-flex">
                 <FilterIcon className="h-6 w-6" />
                 <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
                 <ChevronDownIcon className="h-6 w-6 cursor-pointer" />
             </div>
             <form className="flex  flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">
                 <SearchIcon className="h-6 w-6 text-gray-400" />
-                <input className="flex w- bg-transparent outline-none hidden md:flex" type="text" placeholder="Search Unite" />
+                <input className="flex w- bg-transparent outline-none  md:flex" type="text" placeholder="Search Unite" />
                 <button type="submit" hidden />
             </form>
             <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
@@ -39,7 +46,7 @@ function Navbar(props) {
                 <PlusIcon className="icon" />
                 <SpeakerphoneIcon className="icon" />
             </div>
-            <div className='ml-5 flex items-center lg:hidden text-gray-500'>
+            <div className='ml-5 flex items-center lg:hidden text-gray-500 '>
                 <MenuIcon className='icon' />
             </div>
             <Link href={'/ProfilePage'}><div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
