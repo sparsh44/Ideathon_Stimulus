@@ -35,8 +35,8 @@ function Post(props) {
     return (
 
         <Link href={`/Post/${props.post.post_id}`}>
-            <div className='flex cursor-pointer mt-5 rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400'>
-                <div className='p-3 pb-1'>
+            <div className='flex cursor-pointer mt-5 rounded-md border border-gray-300 bg-white shadow-sm'>
+                <div className='p-3 pb-1 w-full'>
                     <div className='flex items-center space-x-2'>
                         <MyAvatar avatar_url="" />
                         <Link href={`/Community/${props.post.clubName}`}>
@@ -55,25 +55,25 @@ function Post(props) {
 
 
                     <div className='flex space-x-4 text-gray-400 justify-between'>
-                    <div className='flex'>
-                        <div className='postButtons'>
-                            <HeartIcon className='h-6 w-6' />
-                            <p className='hidden sm:inline'>{69} Likes</p>
+                        <div className='flex'>
+                            <div className='postButtons'>
+                                <HeartIcon className='h-6 w-6' />
+                                <p className='hidden sm:inline'>{69} Likes</p>
+                            </div>
+                            <div className='postButtons'>
+                                <ChatAltIcon className='h-6 w-6' />
+                                <p className='hidden sm:inline'>{69} Comments</p>
+                            </div>
+                            <div className='postButtons'>
+                                <ShareIcon className='h-6 w-6' />
+                                <p className='hidden sm:inline'>{69} Share</p>
+                            </div>
                         </div>
                         <div className='postButtons'>
-                            <ChatAltIcon className='h-6 w-6' />
-                            <p className='hidden sm:inline'>{69} Comments</p>
-                        </div>
-                        <div className='postButtons'>
-                            <ShareIcon className='h-6 w-6' />
-                            <p className='hidden sm:inline'>{69} Share</p>
+                            <DotsHorizontalIcon className='h-6 w-6' />
+                            <p className='hidden sm:inline'>{69} More</p>
                         </div>
                     </div>
-                    <div className='postButtons'>
-                        <DotsHorizontalIcon className='h-6 w-6' />
-                        <p className='hidden sm:inline'>{69} More</p>
-                    </div>
-                </div>
                 </div>
             </div>
         </Link>
