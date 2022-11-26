@@ -63,7 +63,7 @@ function Post(props) {
         
     }
     const like=async()=>{
-        let{data,err}= await supabase.from("likes").select("*").eq("user_id",user.id).eq("post_id",props.post.post_id)
+        let{data,err}= await supabase.from("likes").select("*").eq("post_id",props.post.post_id)
      console.log(data||[]);
      if(err){
         throw err
@@ -90,7 +90,7 @@ function Post(props) {
     }
     return (
 
-        <Link href={`/Post/${props.post.post_id}`}>
+        
             <div className='flex cursor-pointer mt-5 rounded-md border border-gray-300 bg-white shadow-sm'>
                 <div className='p-3 pb-1 w-full'>
                     <div className='flex items-center space-x-2'>
@@ -105,7 +105,7 @@ function Post(props) {
                         <h2 className='text-xl font-semibold'>{props.post.title}</h2>
                         <Text content={props.post.content} />
                     </div>
-
+                    <Link href={`/Post/${props.post.post_id}`}>
                     {props.post.attachment_url ? (< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
                     ) : (<div />)}
 
@@ -130,9 +130,9 @@ function Post(props) {
                             <p className='hidden sm:inline'>{69} More</p>
                         </div>
                     </div>
+                    </Link>
                 </div>
             </div>
-        </Link>
 
     )
 }

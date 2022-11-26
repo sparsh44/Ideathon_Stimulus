@@ -6,9 +6,13 @@ import CommunityAvatar from './CommunityAvatar'
 import MyAvatar from './MyAvatar'
 import { useState} from 'react'
 import {useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/router'
+
 function CommunitySidebar(props) {
+    const router = useRouter();
     const supabase = useSupabaseClient()
     const [loading, setLoading] = useState(true)
+    const [active, setActive] = useState(false)
     const joinClub = async (e) => 
     {
         try {
@@ -26,12 +30,20 @@ function CommunitySidebar(props) {
             alert('Error!')
             console.log(error)
           } finally {
+              router.push(`/Community/${e}`)
             setLoading(false)
-
           }
     }
+    const arrJoinedClubs = props.joinedClubs || []
+    console.log(arrJoinedClubs)
+    const map1 = new Map(
+        arrJoinedClubs.map(mp => {
+          return [mp.clubName, true];
+        }),
+      );
 
     const clubNames = props.clubName;
+    
     var rows = [];
     var arr = clubNames || [];
     // console.log(clubNames);
@@ -46,9 +58,8 @@ function CommunitySidebar(props) {
             {club.clubName}
         </Link>
         </div>
-            {/* <Link href={`Community/${club.clubName}`}> */}
-                <button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinClub(club.clubName)}>Join</button>
-            {/* </Link> */}
+        
+                {map1.get(club.clubName)?(<button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Join</button>):(<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinClub(club.clubName) } >Join</button>)}
         </div>
         
         </div>)
