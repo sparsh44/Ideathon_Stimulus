@@ -31,7 +31,63 @@ function Text({ content }) {
 }
 
 function Post(props) {
+    const supabase=useSupabaseClient();
+    const user=useUser();
+    const session=useSession();
+    useEffect(()=>{
+        getLike(),
+        getcomment();
 
+    },[])
+    const [likeNum,setlikeNum]=useState(0);
+    const getLike=async()=>{
+           let{data,error}= await supabase.from("likes").select("*").eq("post_id",props.post.post_id);
+           if(error){
+            throw error;
+            }
+        console.log(data||[]);
+        const d=data||[];
+           setlikeNum(d.length);
+        
+    }
+    const [commentNum,setcommentNum]=useState(0);
+    const getcomment=async()=>{
+           let{data,error}=await supabase.from("comments").select("*").eq("post_id",props.post.post_id);
+           if(error){
+            throw error;
+            }
+            console.log(data||[]);
+            const d=data||[];
+
+           setcommentNum(d.length);
+        
+    }
+    const like=async()=>{
+        let{data,err}= await supabase.from("likes").select("*").eq("user_id",user.id).eq("post_id",props.post.post_id)
+     console.log(data||[]);
+     if(err){
+        throw err
+     }
+     const d=data||[];
+     if(d.length===0){
+        const { error } = await supabase
+        .from('likes')
+        .insert(
+            {
+                user_id:user.id,
+                post_id:props.post.post_id,
+
+            }
+        )
+        if(error){
+            throw error
+        }
+        alert("Like Done");
+    }
+    else{
+        alert("Like Done Already");
+    }
+    }
     return (
 
         <Link href={`/Post/${props.post.post_id}`}>
@@ -57,12 +113,12 @@ function Post(props) {
                     <div className='flex space-x-4 text-gray-400 justify-between'>
                         <div className='flex'>
                             <div className='postButtons'>
-                                <HeartIcon className='h-6 w-6' />
-                                <p className='hidden sm:inline'>{69} Likes</p>
+                                <HeartIcon className='h-6 w-6' onClick={like}/>
+                                <p className='hidden sm:inline'>{likeNum} Likes</p>
                             </div>
                             <div className='postButtons'>
                                 <ChatAltIcon className='h-6 w-6' />
-                                <p className='hidden sm:inline'>{69} Comments</p>
+                                <p className='hidden sm:inline'>{commentNum} Comments</p>
                             </div>
                             <div className='postButtons'>
                                 <ShareIcon className='h-6 w-6' />
