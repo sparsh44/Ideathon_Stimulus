@@ -6,7 +6,7 @@ const RoomData = [
         name: "ML AND AI"
     },
     {
-        name: "COMPETITIVE PROGRAMMING"
+        name: "CP AND DSA"
     },
     {
         name: "OPEN SOURCE"

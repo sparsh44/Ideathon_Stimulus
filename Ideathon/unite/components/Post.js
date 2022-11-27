@@ -7,7 +7,9 @@ import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 const URL_REGEX =
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
@@ -31,15 +33,21 @@ function Text({ content }) {
 }
 
 function Post(props) {
+    console.log(props);
+    
+    const router=useRouter();
+    useEffect(()=>{
+  
+        getLike(),
+        getcomment()
+    },[props])
     const supabase=useSupabaseClient();
     const user=useUser();
     const session=useSession();
-    useEffect(()=>{
-        getLike(),
-        getcomment();
-
-    },[])
     const [likeNum,setlikeNum]=useState(0);
+    const [commentNum,setcommentNum]=useState(0);
+   
+ 
     const getLike=async()=>{
            let{data,error}= await supabase.from("likes").select("*").eq("post_id",props.post.post_id);
            if(error){
@@ -50,21 +58,21 @@ function Post(props) {
            setlikeNum(d.length);
         
     }
-    const [commentNum,setcommentNum]=useState(0);
+   
     const getcomment=async()=>{
            let{data,error}=await supabase.from("comments").select("*").eq("post_id",props.post.post_id);
            if(error){
             throw error;
             }
-            console.log(data||[]);
+            console.log(data);
             const d=data||[];
 
            setcommentNum(d.length);
         
     }
     const like=async()=>{
-        let{data,err}= await supabase.from("likes").select("*").eq("post_id",props.post.post_id)
-     console.log(data||[]);
+        let{data,err}= await supabase.from("likes").select("*").eq("user_id",props.userId).eq("post_id",props.post.post_id);
+     console.log(data);
      if(err){
         throw err
      }
@@ -83,6 +91,7 @@ function Post(props) {
             throw error
         }
         alert("Like Done");
+        router.reload();
     }
     else{
         alert("Like Done Already");
@@ -101,11 +110,11 @@ function Post(props) {
                             </p>
                         </Link>
                     </div>
+                    <Link href={`/Post/${props.post.post_id}`}>
                     <div className='py-4'>
                         <h2 className='text-xl font-semibold'>{props.post.title}</h2>
                         <Text content={props.post.content} />
                     </div>
-                    <Link href={`/Post/${props.post.post_id}`}>
                     {props.post.attachment_url ? (< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
                     ) : (<div />)}
 

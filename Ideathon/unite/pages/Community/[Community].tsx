@@ -29,7 +29,7 @@ function CommunityPage() {
 
     return (
         <div className={` h-36 bg-red-400 pt-8`}>
-            <div className='-mx-8 mt-28 bg-white'>
+            <div className=' mt-28 bg-white w-full'>
                 <div className='mx-auto flex max-w-5xl items-center space-x-4 pb-5'>
                     <div className='-mt-5 ml-10'>
                         <CommunityAvatar />
@@ -53,7 +53,7 @@ function CommunityPage() {
                         <Room />
                     </div>
                     <Feed posts={posts} />
-                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
+                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[250px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Resources</p>
                         <Resource />
                     </div>
