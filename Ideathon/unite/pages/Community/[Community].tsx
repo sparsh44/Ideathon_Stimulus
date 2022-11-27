@@ -7,6 +7,8 @@ import Feed from '../../components/Feed';
 import { useState, useEffect } from 'react';
 import PostData from '../../assets/PostData';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import Room from '../../components/Room'
+import Resource from '../../components/Resource'
 
 function CommunityPage() {
     const { query } = useRouter()
@@ -27,7 +29,7 @@ function CommunityPage() {
 
     return (
         <div className={` h-36 bg-red-400 pt-8`}>
-            <div className='-mx-8 mt-28 bg-white'>
+            <div className=' mt-28 bg-white w-full'>
                 <div className='mx-auto flex max-w-5xl items-center space-x-4 pb-5'>
                     <div className='-mt-5 ml-10'>
                         <CommunityAvatar />
@@ -41,12 +43,20 @@ function CommunityPage() {
                 </div>
             </div>
             <div className=''>
-                <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-5xl'>
+                <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-7xl'>
                     <PostBox community={query.Community} />
                     {/* <PostBox community={community as string} /> */}
                 </div>
-                <div className='flex my-7 mx-auto max-w-5xl'>
+                <div className='flex my-7 mx-auto max-w-7xl'>
+                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
+                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
+                        <Room />
+                    </div>
                     <Feed posts={posts} />
+                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[250px] rounded-md border border-grap-300 bg-white lg:inline'>
+                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Resources</p>
+                        <Resource />
+                    </div>
                 </div>
             </div>
         </div>
