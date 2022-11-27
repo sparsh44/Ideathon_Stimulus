@@ -34,15 +34,17 @@ function Text({ content }) {
 }
 
 function Post(props) {
-    console.log(props);
+  
     
     const router=useRouter();
+   
     useEffect(()=>{
-  
+        if(!router.isReady||props.post==="" || props.userId===null) return
         getLike(),
         getcomment()
-    },[props])
+    },[props,router.isReady])
     const supabase=useSupabaseClient();
+    console.log(props);
     const user=useUser();
     const session=useSession();
     const [likeNum,setlikeNum]=useState(0);
@@ -72,7 +74,7 @@ function Post(props) {
         
     }
     const like=async()=>{
-        let{data,err}= await supabase.from("likes").select("*").eq("user_id",props.userId).eq("post_id",props.post.post_id);
+        let{data,err}= await supabase.from("likes").select("*").eq("user_id",user.id).eq("post_id",props.post.post_id);
      console.log(data);
      if(err){
         throw err
@@ -120,6 +122,7 @@ function Post(props) {
                     ) : (<div />)}
 
 
+                    </Link>
                     <div className='flex space-x-4 text-gray-400 justify-between'>
                         <div className='flex'>
                             <div className='postButtons'>
@@ -140,7 +143,6 @@ function Post(props) {
                             <p className='hidden sm:inline'>{69} More</p>
                         </div>
                     </div>
-                    </Link>
                 </div>
             </div>
 
