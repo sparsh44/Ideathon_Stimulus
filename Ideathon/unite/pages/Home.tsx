@@ -13,12 +13,14 @@ import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-r
 import Post from '../components/Post'
 import CommunitySidebar from '../components/CommunitySidebar'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 
 const Home: NextPage = () => {
     const supabase = useSupabaseClient()
     const user = useUser()
     const session = useSession()
+    const router=useRouter();
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
     const [full_name, setfullname] = useState(null)
@@ -29,8 +31,14 @@ const Home: NextPage = () => {
     const [joinedClubs, setJoinedClubs] = useState(null)
 
     useEffect(() => {
+        if(router.isReady){
+
         getProfile()
-    }, [session])
+        }
+        else{
+            return 
+        }
+    }, [session,router.isReady])
 
     async function getProfile() {
         try {
@@ -60,8 +68,9 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
+        if(!router.isReady) return
         getAdminId()
-    }, [session])
+    }, [session,router.isReady])
 
     async function getAdminId() {
         try {
@@ -90,8 +99,9 @@ const Home: NextPage = () => {
         }
     }
     useEffect(() => {
+        if(!router.isReady) return
         getAllClubs()
-    }, [session])
+    }, [session,router.isReady])
     async function getAllClubs() {
         try {
             setLoading(true)
@@ -120,8 +130,9 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
+        if(!router.isReady) return
         getJoinedClubs()
-    }, [session])
+    }, [session,router.isReady])
     async function getJoinedClubs() {
         try {
             setLoading(true)
@@ -151,8 +162,9 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
+        if(!router.isReady) return
         getPosts()
-    }, [session])
+    }, [session,router.isReady])
 
     async function getPosts() {
         try {
