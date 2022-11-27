@@ -1,7 +1,8 @@
 import React from 'react'
 import PostData from '../assets/PostData'
 import MyAvatar from './MyAvatar'
-import TimeAgo from 'react-timeago'
+// import TimeAgo from 'react-timeago'
+import moment from 'moment';
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
@@ -106,7 +107,7 @@ function Post(props) {
                         <MyAvatar avatar_url="" />
                         <Link href={`/Community/${props.post.clubName}`}>
                             <p className='text-xc text-gray-400'>
-                                <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} 55min ago
+                                <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} {moment(new Date(props.post.created_at)).fromNow()}
                             </p>
                         </Link>
                     </div>
