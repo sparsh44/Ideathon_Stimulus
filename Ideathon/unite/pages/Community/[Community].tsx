@@ -7,6 +7,7 @@ import Feed from '../../components/Feed';
 import { useState, useEffect } from 'react';
 import PostData from '../../assets/PostData';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import Room from '../../components/Room'
 
 function CommunityPage() {
     const { query } = useRouter()
@@ -47,6 +48,10 @@ function CommunityPage() {
                 </div>
                 <div className='flex my-7 mx-auto max-w-5xl'>
                     <Feed posts={posts} />
+                    <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
+                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
+                        <Room />
+                    </div>
                 </div>
             </div>
         </div>

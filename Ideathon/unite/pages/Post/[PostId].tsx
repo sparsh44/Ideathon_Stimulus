@@ -20,7 +20,7 @@ function PostPage() {
 
     useEffect(() => {
         posts(),
-        comments()
+            comments()
     }, [])
 
     useEffect(() => {
@@ -54,7 +54,7 @@ function PostPage() {
     console.log(query.PostId)
     //PostId
     const [post, setPost] = useState([]);
-    
+
     const posts = async () => {
         let { data, error } = await supabase.from('posts').select('*').eq('post_id', query.PostId).single();
         if (error) {
@@ -119,7 +119,7 @@ function PostPage() {
         <div>
             <Navbar />
             <div className='mx-auto my-7 max-w-5xl'>
-                <Post post={post}/>
+                <Post post={post} />
                 <div className='-mt-1 rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16'>
                     <div className='text-sm font-bold'>Comment by <span className='text-red-500'>{username}</span></div> {/* Guys yaha Gopal Verma hi jagah session.user.name ayega*/}
                     <form className='flex flex-col space-y-2'>
