@@ -18,7 +18,7 @@ function CommunityPage() {
         allPost();
     }, [router.isReady])
 
-    const [posts, setPost] = useState([])
+    const [posts, setPost] = useState([]);
 
     const supabase = useSupabaseClient()
     const allPost = async () => {
@@ -54,7 +54,7 @@ function CommunityPage() {
                     <Feed posts={posts} />
                     <div className='sticky top-5 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Resources</p>
-                        <Resource />
+                        <Resource community={router.query.Community} />
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
                         <Room />
                     </div>
