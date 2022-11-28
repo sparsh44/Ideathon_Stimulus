@@ -8,7 +8,7 @@ function Room() {
             <ChatNavbar />
             <div className='flex'>
                 <Sidebar />
-                <div className='flex justify-end w-4/5'>
+                <div className='flex justify-start w-4/5'>
                     <h1>Gopal</h1>
                 </div>
             </div>
