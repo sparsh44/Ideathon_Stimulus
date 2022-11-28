@@ -43,7 +43,7 @@ function CommunityPage() {
                 </div>
             </div>
             <div className=''>
-                <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-7xl'>
+                <div className='sticky top-0 z-5 flex my-7 mx-auto max-w-7xl'>
                     <PostBox community={query.Community} />
                     {/* <PostBox community={community as string} /> */}
                 </div>
