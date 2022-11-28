@@ -1,6 +1,7 @@
 import React from 'react'
 import Post from '../../components/Post'
 import { useRouter } from 'next/router'
+import moment from 'moment'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
@@ -131,7 +132,7 @@ function PostPage() {
                 </div>
                 <div className='flex flex-col'>
                     <div>
-                        <span>{commen.username}</span> {"69 minutes ago"}
+                        <span>{commen.username}</span> {moment(new Date(commen.created_at)).fromNow()}
                     </div>
                     <div>{commen.comment}</div>
                 </div>
