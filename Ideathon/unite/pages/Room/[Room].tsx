@@ -1,14 +1,16 @@
 import React from 'react'
-import Sidebar from "../../components/chat/Sidebar"
+import Sidebar from '../../components/Sidebar'
+import ChatNavbar from '../../components/ChatNavbar'
 
 function Room() {
     return (
-        <div className=' h-100 flex justify-start'>
-            {/* sidebar */}
-            <Sidebar />
-            <div>
-                {/* Converstaion List */}
-                {/* Chat View */}
+        <div>
+            <ChatNavbar />
+            <div className='flex'>
+                <Sidebar />
+                <div className='flex justify-start w-4/5'>
+                    <h1>Gopal</h1>
+                </div>
             </div>
         </div>
     )
