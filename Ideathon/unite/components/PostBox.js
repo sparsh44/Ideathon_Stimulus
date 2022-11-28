@@ -111,10 +111,14 @@ function PostBox(props) {
 
                     }
                 )
+                if(error){
+                    throw error
+                }
+                else{
           
                 alert("Post created")
                 router.reload();
-         
+                }
 
           
 

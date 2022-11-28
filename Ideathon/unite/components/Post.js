@@ -1,7 +1,8 @@
 import React from 'react'
 import PostData from '../assets/PostData'
 import MyAvatar from './MyAvatar'
-import TimeAgo from 'react-timeago'
+// import TimeAgo from 'react-timeago'
+import moment from 'moment';
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
 import PostAvatar from './PostAvatar'
@@ -33,15 +34,17 @@ function Text({ content }) {
 }
 
 function Post(props) {
-    console.log(props);
+  
     
     const router=useRouter();
+   
     useEffect(()=>{
-  
+        if(!router.isReady||props.post==="" || props.userId===null) return
         getLike(),
         getcomment()
-    },[props])
+    },[props,router.isReady])
     const supabase=useSupabaseClient();
+    console.log(props);
     const user=useUser();
     const session=useSession();
     const [likeNum,setlikeNum]=useState(0);
@@ -71,7 +74,7 @@ function Post(props) {
         
     }
     const like=async()=>{
-        let{data,err}= await supabase.from("likes").select("*").eq("user_id",props.userId).eq("post_id",props.post.post_id);
+        let{data,err}= await supabase.from("likes").select("*").eq("user_id",user.id).eq("post_id",props.post.post_id);
      console.log(data);
      if(err){
         throw err
@@ -106,7 +109,7 @@ function Post(props) {
                         <MyAvatar avatar_url="" />
                         <Link href={`/Community/${props.post.clubName}`}>
                             <p className='text-xc text-gray-400'>
-                                <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} 55min ago
+                                <span className='font-bold text-black hover:text-blue-400 hover:underline'>{props.post.clubName}</span> · Posted by {props.post.postedBy} {moment(new Date(props.post.created_at)).fromNow()}
                             </p>
                         </Link>
                     </div>
@@ -119,6 +122,7 @@ function Post(props) {
                     ) : (<div />)}
 
 
+                    </Link>
                     <div className='flex space-x-4 text-gray-400 justify-between'>
                         <div className='flex'>
                             <div className='postButtons'>
@@ -139,7 +143,6 @@ function Post(props) {
                             <p className='hidden sm:inline'>{69} More</p>
                         </div>
                     </div>
-                    </Link>
                 </div>
             </div>
 

@@ -11,18 +11,24 @@ import Room from '../../components/Room'
 import Resource from '../../components/Resource'
 
 function CommunityPage() {
-    const { query } = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
+        if (!router.isReady) return
         allPost();
-    }, [])
+    }, [router.isReady])
 
     const [posts, setPost] = useState([])
 
     const supabase = useSupabaseClient()
     const allPost = async () => {
-        const { data, error } = await supabase.from('posts').select('*').eq('clubName', query.Community);
+        const { data, error } = await supabase.from('posts').select('*').eq('clubName', router.query.Community);
         console.log(data);
+        data.sort(function (a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(b.created_at) - new Date(a.created_at);
+        });
         setPost(data)
     }
 
@@ -36,15 +42,15 @@ function CommunityPage() {
                     </div>
                     <div className='py-2'>
                         <h1 className='text-3xl font-semibold'>
-                            Welcome to the {query.Community}
+                            Welcome to the {router.query.Community}
                         </h1>
-                        <p className='text-sm text-gray-400'>{query.Community}</p>
+                        <p className='text-sm text-gray-400'>{router.query.Community}</p>
                     </div>
                 </div>
             </div>
             <div className=''>
-                <div className='sticky top-0 z-5 flex my-7 mx-auto max-w-7xl'>
-                    <PostBox community={query.Community} />
+                <div className='sticky top-0 z-10 flex my-7 mx-auto max-w-7xl'>
+                    <PostBox community={router.query.Community} />
                     {/* <PostBox community={community as string} /> */}
                 </div>
                 <div className='flex my-7 mx-auto max-w-7xl'>
