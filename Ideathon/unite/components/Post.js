@@ -113,16 +113,18 @@ function Post(props) {
                             </p>
                         </Link>
                     </div>
-                    <Link href={`/Post/${props.post.post_id}`}>
+                    
                     <div className='py-4'>
-                        <h2 className='text-xl font-semibold'>{props.post.title}</h2>
+                    <Link href={`/Post/${props.post.post_id}`}>
+                        <h2 className='text-xl font-semibold'>{props.post.title}</h2></Link>
                         <Text content={props.post.content} />
                     </div>
-                    {props.post.attachment_url ? (< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
-                    ) : (<div />)}
+                    
+                    {props.post.attachment_url ? (
+                    <Link href={`/Post/${props.post.post_id}`}>< img className='w-full' src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/media/${props.post.attachment_url}`} alt={props.post.title} />
+                    </Link>) : (<div />)}
 
 
-                    </Link>
                     <div className='flex space-x-4 text-gray-400 justify-between'>
                         <div className='flex'>
                             <div className='postButtons'>
@@ -135,12 +137,12 @@ function Post(props) {
                             </div>
                             <div className='postButtons'>
                                 <ShareIcon className='h-6 w-6' />
-                                <p className='hidden sm:inline'>{69} Share</p>
+                                <p className='hidden sm:inline'> Share</p>
                             </div>
                         </div>
                         <div className='postButtons'>
                             <DotsHorizontalIcon className='h-6 w-6' />
-                            <p className='hidden sm:inline'>{69} More</p>
+                            <p className='hidden sm:inline'> More</p>
                         </div>
                     </div>
                 </div>
