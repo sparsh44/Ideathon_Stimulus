@@ -49,16 +49,14 @@ function CommunityPage() {
                 </div>
             </div>
             <div className=''>
-               
+
                 <div className='flex my-7 mx-auto max-w-7xl'>
-                    <div className='sticky top-5 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
-                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
-                        <Room />
-                    </div>
                     <Feed posts={posts} />
-                    <div className='sticky top-5 mt-10 mx-5 ml-5 hidden h-fit min-w-[250px] rounded-md border border-grap-300 bg-white lg:inline'>
+                    <div className='sticky top-5 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Resources</p>
                         <Resource />
+                        <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
+                        <Room />
                     </div>
                 </div>
             </div>

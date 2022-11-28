@@ -9,8 +9,8 @@ export default function Modal({ show, setShow }: Props) {
     return (
         <>
             {show && (
-                <div className="fixed top-0 m flex items-center justify-center p-10 left-0 right-0 bottom-0 bg-opacity-25 bg-black z-50 overflow-x-hidden overflow-y-auto">
-                    <div className="bg-white p-10 rounded-lg max-w-2xl z-50 relative overflow-y-scroll h-full">
+                <div className="fixed top-0 flex items-center justify-center p-10 left-0 right-0 bottom-0 bg-opacity-25 bg-black z-50 overflow-x-hidden overflow-y-auto">
+                    <div className="bg-white p-10 rounded-lg w-1/2 z-50 relative overflow-y-scroll h-full">
                         <div
                             className="absolute top-5 right-5 bg-gray-300 p-3 rounded-full hover:bg-gray-400 transition-all cursor-pointer"
                             onClick={() => setShow(false)}
