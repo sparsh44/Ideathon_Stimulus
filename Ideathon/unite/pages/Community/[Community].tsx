@@ -11,10 +11,10 @@ import Room from '../../components/Room'
 import Resource from '../../components/Resource'
 
 function CommunityPage() {
-    const router=useRouter();
+    const router = useRouter();
 
     useEffect(() => {
-        if(!router.isReady) return 
+        if (!router.isReady) return
         allPost();
     }, [router.isReady])
 
@@ -24,11 +24,11 @@ function CommunityPage() {
     const allPost = async () => {
         const { data, error } = await supabase.from('posts').select('*').eq('clubName', router.query.Community);
         console.log(data);
-        data.sort(function(a,b){
+        data.sort(function (a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(b.created_at) - new Date(a.created_at);
-          });
+        });
         setPost(data)
     }
 
