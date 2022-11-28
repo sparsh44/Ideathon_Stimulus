@@ -3,24 +3,16 @@ import React from 'react'
 import logo from '../assets/circular_favicon_light.png'
 import Image from 'next/image'
 import SidebarRow from '../components/SidebarRow'
-import Community from '../assets/CommunityData'
+import User from "../assets/User"
 
 function Sidebar() {
     return (
-        <div className='col-span-2 flex flex-col'>
-            <div className='flex hover:text-lg ml-2  cursor-pointer items-start space-x-2 rounded-full px-2 py-1'>
-                <Image
-                    objectFit='contain'
-                    src={logo}
-                    width={80}
-                    height={80}
-                    style={{ borderRadius: 50 }}
-                />
-            </div>
+        // <div className='col-span-2 flex flex-col fixed  w-1/5 overflow-auto'>
+        <div className="ml-1 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto  pb-10 ">
             <div className='m-5'>
                 {
-                    Community.map((e) => (
-                        <SidebarRow avatar={e.image} title={e.title} />
+                    User.map((e) => (
+                        <SidebarRow avatar={e.image} title={e.name} />
                     ))
                 }
             </div>
