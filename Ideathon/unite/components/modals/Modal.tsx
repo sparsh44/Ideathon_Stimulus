@@ -1,11 +1,43 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useUser,useSupabaseClient,useSession } from '@supabase/auth-helpers-react'
+import { supabase } from "@supabase/auth-ui-react/dist/esm/common/theming";
+import { useRouter } from "next/router";
 
 type Props = {
     show: boolean;
     setShow: Dispatch<SetStateAction<boolean>>;
+    community:string;
 };
 
-export default function Modal({ show, setShow }: Props) {
+export default function Modal({ show, setShow,community }: Props) {
+    const user=useUser();
+    const session=useSession();
+    const supabase=useSupabaseClient();
+    const router=useRouter();
+    useEffect(()=>{
+        if(!router.isReady) return
+        links()
+
+    },[community,router.isReady])
+    const[res,setRes]=useState([]);
+    console.log(community);
+    const links=async()=>{
+        let{data,error}=await supabase.from('resources').select("*").eq("clubName",community);
+        if(error){
+            throw error
+        }
+        setRes(data);
+        console.log(data);
+
+
+    }
+    const arr=res||[]
+    const rows=[];
+    arr.forEach(link=>{
+        rows.push(
+            <a href={link.document_url}>{link.document_name}</a>
+        )
+    })
     return (
         <>
             {show && (
@@ -22,6 +54,9 @@ export default function Modal({ show, setShow }: Props) {
                         </div>
                         <div className="font-bold text-2xl">Guys, this is the resource modal!</div>
                         <div className="mt-5 font-medium ">
+                            <ul>
+                            {rows}
+                            </ul>
 
                         </div>
                         <div className="mt-5 space-x-3">
