@@ -1,18 +1,33 @@
 import React from 'react'
 import ChatInput from './ChatInput'
-import Message from '../assets/Message'
-import MessageContainer from './MessageContainer'
 
-function ChatBox() {
+
+function ChatBox(props) {
+    const chats = props.allMessages;
+    var rows = [];
+    var arr = chats || [];
+    arr.forEach(chat => {
+        rows.push(
+            <div>{chat.profile_id===props.user.id?(<div className='m-2 flex-1 bg-blue-50 outline-none p-2'>
+                {chat.content}
+                {
+                    chat.profile.username
+                }
+            </div>):(<div >
+                {chat.content}
+                {
+                    chat.profile.username
+                }
+            </div>)}
+            </div>
+        )
+    });
     return (
-        <div className='w-full'>
-            {
-                Message.map(e => (
-                    <div className=' my-6'>
-                        <MessageContainer username={e.username} message={e.message} profilePic={e.profilePic} created_at={e.created_at} />
-                    </div>
-                ))
-            }
+        <div>
+            <div className="p-2">
+                {rows}
+            </div>
+
 
         </div>
     )
