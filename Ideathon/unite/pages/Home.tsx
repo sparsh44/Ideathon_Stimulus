@@ -80,7 +80,7 @@ const Home: NextPage = () => {
                 .from('club_admins')
                 .select(`clubName`)
                 .eq('user_id', user.id)
-
+                
             if (error && status !== 406) {
                 throw error
             }
