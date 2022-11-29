@@ -173,7 +173,7 @@ function PostBox(props) {
                             <input
                                 className='m-2 flex-1 bg-blue-50 outline-none p-2'
                                 onChange={(e) => setPostBody(e.target.value)}
-                                placeholder="Text (Optional)..."
+                                placeholder="Content of Body"
                             />
                         </div>
 
