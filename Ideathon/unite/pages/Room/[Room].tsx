@@ -6,11 +6,11 @@ import ChatInput from '../../components/ChatInput'
 
 function Room() {
     return (
-        <div>
-            <ChatNavbar />
+        <div className=' w-full'>
+            <ChatNavbar room="WEB AND APP" />
             <div className='flex'>
                 <Sidebar />
-                <div className='flex justify-start w-4/5'>
+                <div className='ml-1 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto  pb-10 flex justify-start w-4/5'>
                     <ChatBox />
                 </div>
             </div>

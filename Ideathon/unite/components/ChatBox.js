@@ -8,11 +8,12 @@ function ChatBox() {
         <div className='w-full'>
             {
                 Message.map(e => (
-                    <div>
+                    <div className=' my-6'>
                         <MessageContainer username={e.username} message={e.message} profilePic={e.profilePic} created_at={e.created_at} />
                     </div>
                 ))
             }
+
         </div>
     )
 }
