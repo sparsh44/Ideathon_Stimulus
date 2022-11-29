@@ -59,7 +59,7 @@ function CommunityPage() {
         });
         setPost(data)
     }
-    const onSubmit = async (subGroupName:any) => {
+    const onSubmit = async (subGroupName: any) => {
         try {
             setLoading(true)
 
@@ -67,22 +67,21 @@ function CommunityPage() {
                 .from('rooms')
                 .insert(
                     {
-                    roomName: subGroupName,
-                    clubName: router.query.Community
-                }
+                        roomName: subGroupName,
+                        clubName: router.query.Community
+                    }
                 )
-                if(error){
+            if (error) {
 
-                    alert(`Room of ${subGroupName} created in ${router.query.Community}`)
-                }
-                if(data)
-                {
-                    
+                alert(`Room of ${subGroupName} created in ${router.query.Community}`)
+            }
+            if (data) {
+
                 alert("Room created")
                 router.reload();
-                }
+            }
 
-          
+
 
         } catch (error) {
             alert(error);
@@ -124,7 +123,6 @@ function CommunityPage() {
                         <CommunityAvatar />
                     </div>
                     <div className='py-2'>
-                    <Link href={"/"}><HomeIcon className="icon"/></Link>
                         <h1 className='text-3xl font-semibold'>
                             Welcome to the {router.query.Community}
                         </h1>
@@ -152,7 +150,7 @@ function CommunityPage() {
                                             placeholder="Room Name"
                                         />
                                         {subGroupName.length === 0 ? (
-                                            <button  type='submit' className='w-full rounded-full bg-gray-400 font-bold p-2 text-white' disabled>Create Room</button>
+                                            <button type='submit' className='w-full rounded-full bg-gray-400 font-bold p-2 text-white' disabled>Create Room</button>
                                         ) : (
                                             <button onClick={() => onSubmit(subGroupName)} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Room</button>
 
@@ -162,7 +160,7 @@ function CommunityPage() {
                                 </div>
                             ) : (<div />)}
                         </div>
-                        <Room allRooms = {allRooms}/>
+                        <Room allRooms={allRooms} />
                     </div>
                 </div>
             </div>
