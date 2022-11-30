@@ -80,16 +80,12 @@ function Room() {
 
         console.log(payload);
         payload.new["profile"] = {
-            "id": user.id,
+            "id": userId,
             "username": username,
             "avatar_url": avatar_url,
         }
         console.log("YES")
         setMessage((messages) => [].concat(messages, [payload.new]));
-
-
-
-
 
     }).subscribe()
     console.log(messages);
@@ -112,21 +108,9 @@ function Room() {
                         className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
                         placeholder='Enter message here...'
                     />
-                    <PaperAirplaneIcon className='w-6 h-6' onClick={() => { InsertMessage() }} />
+                    <PaperAirplaneIcon className='w-8 h-8 ' onClick={() => { InsertMessage() }} />
                 </div>
             </div>
-            <div className=' w-screen'>
-            </div>
-
-            <input
-                type="text"
-                value={content || ""}
-                onChange={(e) => { usecont(e.target.value) }}
-                className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
-                placeholder='Enter message here...'
-            />
-
-            <PaperAirplaneIcon className='w-6 h-6' onClick={() => { InsertMessage() }} />
         </div>
     )
 }
