@@ -11,7 +11,7 @@ function ChatInput() {
             />
             <button
                 type="submit"
-                className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4  disabled:opacity-50 disabled:cursor-not-allowed'
+                className='bg-blue-400 text-white font-bold py-2 px-4 cursor-pointer'
             >
                 <PaperAirplaneIcon className='w-6 h-6' />
             </button>
