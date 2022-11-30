@@ -15,7 +15,7 @@ function ChatBox(props) {
             (chat.profile_id === props.user) ? (
                 <div className='flex w-fit ml-auto'>
                     <div className='flex-shrink-0 order-2'>
-                    <MyAvatar avatar_url = {chat.avatar_url}/>
+                        <MyAvatar avatar_url={chat.avatar_url} />
                     </div>
                     <div className=' ml-auto'   >
                         <p className='text-[0.65rem] px-[2px] pb-[2px] text-blue-400'>{chat.username}</p>
@@ -30,7 +30,7 @@ function ChatBox(props) {
             ) : (
                 <div className='flex w-fit my-5'>
                     <div className='flex-shrink-0'>
-                    <MyAvatar avatar_url = {chat.avatar_url}/>
+                        <MyAvatar avatar_url={chat.avatar_url} />
                     </div>
                     <div>
                         <p className='text-[0.65rem] px-[2px] pb-[2px] text-red-400'>{chat.username}</p>
