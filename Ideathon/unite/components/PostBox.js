@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 // import { useForm } from "react-hook-form";
 function PostBox(props) {
 
-    const user = props.user;
+    const user = useUser();
     const router = useRouter();
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
@@ -95,14 +95,13 @@ function PostBox(props) {
 
 
     const onSubmit = async ({ postTitle, postBody, postImage, postCommunity }) => {
-        try {
             setLoading(true)
 
             const { error } = await supabase
                 .from('posts')
                 .insert(
                     {
-                        user_id: props.user.id,
+                        user_id: user.id,
                         title: postTitle,
                         content: postBody,
                         attachment_url: postImage,
@@ -114,20 +113,17 @@ function PostBox(props) {
                 if(error){
                     throw error
                 }
-                else{
+             
           
                 alert("Post created")
                 router.reload();
-                }
+               
 
           
 
-        } catch (error) {
-            alert(error);
-            console.log(error)
-        } finally {
+     
             setLoading(false)
-        }
+        
     }
     const handleClick = (clubName) => {
         setPostCommunity(clubName)

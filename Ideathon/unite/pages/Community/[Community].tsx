@@ -30,7 +30,7 @@ function CommunityPage() {
     useEffect(() => {
         if (!router.isReady) return
         getAdminId()
-    }, [session, router.isReady])
+    }, [ router.isReady])
 
     async function getAdminId() {
 
