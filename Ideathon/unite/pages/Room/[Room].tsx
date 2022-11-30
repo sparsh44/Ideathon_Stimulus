@@ -107,7 +107,7 @@ function Room() {
                         className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
                         placeholder='Enter message here...'
                     />
-                    <div className=' bg-blue-500 '>
+                    <div className=' bg-blue-500 hover:bg-blue-600 cursor-pointer '>
                         <PaperAirplaneIcon className='w-8 h-8 text-white mx-5 my-2' onClick={() => { InsertMessage() }} />
                     </div>
                 </div>
