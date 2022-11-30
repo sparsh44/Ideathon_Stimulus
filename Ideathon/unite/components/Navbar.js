@@ -7,10 +7,55 @@ import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, Sparkles
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
 import SmallCompanyLogo from "../assets/circular_favicon_light.png"
+import { useState } from 'react';
+import { Menu } from '@headlessui/react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 
 function Navbar(props) {
     const router = useRouter();
+    const supabase=useSupabaseClient();
+    const user=useUser();
+    const[show,setShow]=useState(false);
+    const[username,setuser]=useState("");
+    const[clubnm,setclub]=useState("Choose Club");
+    const makeadmin=async()=>{
+        const { data, erro } = await supabase
+        .from('profiles')
+        .select("id").eq("username",username).single();
+
+        const { error } = await supabase
+        .from('club_admins')
+        .insert(
+            {
+                clubName:clubnm,
+                user_id:data.id
+
+            }
+        )
+        if(error){
+            throw error
+        }
+        alert("Admin Created");
+                
+    }
+    var arr=props.clubs||[];
+    var rows=[];
+    arr.forEach(element => {
+        rows.push(
+            <Menu.Item onClick={()=>{setclub(element.clubName)}}>
+        
+            <a
+             
+             
+            >
+              {element.clubName}
+            </a>
+        
+        </Menu.Item>
+        )
+        
+    });
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
             <div className='relative h-20 w-32 py-3 hidden sm:inline-flex flex-shrink cursor-pointer '>
@@ -43,7 +88,24 @@ function Navbar(props) {
                 <hr className="h-10 border border-gray-100" />
                 <ChatIcon className="icon" />
                 <BellIcon className="icon" />
-                <PlusIcon className="icon" />
+                <PlusIcon className="icon" onClick={()=>{setShow(!show)}}/>
+                {
+                    show && (
+                        <div>
+                        <Menu>
+                          <Menu.Button>{clubnm}</Menu.Button>
+                              <Menu.Items>
+                                   {rows}
+                             </Menu.Items>
+                         </Menu>
+                            <input type="text" placeholder='Enter Username'
+                            value={username||""} 
+                            onChange={e => setuser(e.target.value)} />
+                            <button onClick={()=>{makeadmin()}}>Create Admin</button>
+
+                        </div>
+                    )
+                }
                 <SpeakerphoneIcon className="icon" />
             </div>
             <div className='ml-5 flex items-center lg:hidden text-gray-500 '>
