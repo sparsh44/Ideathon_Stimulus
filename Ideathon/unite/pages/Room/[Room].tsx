@@ -95,12 +95,11 @@ function Room() {
             <div className=' w-full'>
                 <ChatNavbar room={router.query.Room} />
                 <div className='flex'>
-                    <Sidebar />
-                    <div className='mx-10 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto  pb-10 flex justify-center w-screen'>
+                    <div className='mx-0 md:mx-10 mt-20 mb-10 pb-10 flex justify-center w-screen'>
                         <ChatBox allMessages={messages} user={user} />
                     </div>
                 </div>
-                <div className=' w-full'>
+                <div className=' w-screen flex bottom-0 absolute'>
                     <input
                         type="text"
                         value={content || ""}
@@ -108,7 +107,9 @@ function Room() {
                         className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
                         placeholder='Enter message here...'
                     />
-                    <PaperAirplaneIcon className='w-8 h-8 ' onClick={() => { InsertMessage() }} />
+                    <div className=' bg-blue-500 '>
+                        <PaperAirplaneIcon className='w-8 h-8 text-white mx-5 my-2' onClick={() => { InsertMessage() }} />
+                    </div>
                 </div>
             </div>
         </div>
