@@ -145,7 +145,7 @@ function PostBox(props) {
     // console.log("rows");
 
     return (
-        <form className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
+        <div className='sticky top-16 z-50 bg-white border rounded-md border-gray-300  w-full p-2'>
             <div className='flex items-center space-x-3'>
                 {/* avatar */}
                 <MyAvatar avatar_url={props.avatar_url} />
@@ -244,7 +244,7 @@ function PostBox(props) {
                         {
                             (postCommunity) && (uploadImageHook || postBody) && (
                                 <div className='pt-5'>
-                                    <button onClick={() => onSubmit({ postTitle, postBody, postImage, postCommunity })} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
+                                    <button onClick={() => onSubmit({ postTitle, postBody, postImage, postCommunity })}  className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Post</button>
                                 </div>
                             )
                         }
@@ -252,7 +252,7 @@ function PostBox(props) {
                     </div>
                 ))
             }
-        </form>
+        </div>
 
     )
 }
