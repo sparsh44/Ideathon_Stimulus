@@ -203,7 +203,7 @@ const Home: NextPage = () => {
         <div>
 
             <div className='  w-full relative'>
-                <Navbar userId={user.id} username={username} avatar_url={avatar_url} />
+                <Navbar userId={user.id} username={username} avatar_url={avatar_url} clubs={clubNames} />
             </div>
 
             <div className=''>
