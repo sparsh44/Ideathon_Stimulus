@@ -8,8 +8,8 @@ import Navbar from "../components/Navbar";
 const customTheme = {
   default: {
     colors: {
-      brand: "rgb(139 92 246)",
-      brandAccent: "hsl(354deg 88% 36%)",
+      brand: "rgb(96 165 250)",
+      brandAccent: "rgb(96 165 250)",
       brandButtonText: "white",
       inputBorder: "lightgray",
       inputPlaceholder: "rgb(107 114 128)",
