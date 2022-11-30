@@ -115,7 +115,7 @@ console.log(messages);
         <div className=' w-full'>
             <ChatNavbar room={router.query.Room} />
             <div className='flex'>
-                <div className='mx-0 md:mx-10 mt-20 mb-10 pb-10 flex justify-center w-screen'>
+                <div className='lg:px-40 md:mx-10 mx-19 mt-20 mb-10 pb-10 flex justify-center w-screen'>
                     <ChatBox messages={messages} user={userId} />
                 </div>
             </div>
