@@ -38,7 +38,7 @@ const Home: NextPage = () => {
         else{
             return 
         }
-    }, [session,router.isReady])
+    }, [router.isReady])
 
     async function getProfile() {
         try {
@@ -70,7 +70,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         if(!router.isReady) return
         getAdminId()
-    }, [session,router.isReady])
+    }, [router.isReady])
 
     async function getAdminId() {
         try {
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         if(!router.isReady) return
         getAllClubs()
-    }, [session,router.isReady])
+    }, [router.isReady])
     async function getAllClubs() {
         try {
             setLoading(true)
@@ -132,7 +132,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         if(!router.isReady) return
         getJoinedClubs()
-    }, [session,router.isReady])
+    }, [router.isReady])
     async function getJoinedClubs() {
         try {
             setLoading(true)
@@ -164,7 +164,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         if(!router.isReady) return
         getPosts()
-    }, [session,router.isReady])
+    }, [router.isReady])
 
     async function getPosts() {
         try {
@@ -174,7 +174,7 @@ const Home: NextPage = () => {
                 .from('posts')
                 .select(`*`)
 
-            if (error && status !== 406) {
+            if (error) {
                 throw error
             }
 
@@ -196,6 +196,7 @@ const Home: NextPage = () => {
             setLoading(false)
         }
     }
+    console.log(allPosts);
 
 
     return (
