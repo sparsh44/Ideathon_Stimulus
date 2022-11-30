@@ -5,27 +5,27 @@ import ChatBox from '../../components/ChatBox'
 import ChatInput from '../../components/ChatInput'
 
 import { PaperAirplaneIcon } from '@heroicons/react/solid'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useSupabaseClient,useUser,useSession } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser, useSession } from '@supabase/auth-helpers-react'
 
 function Room() {
-    const user=useUser()
-    const session=useSession();
-    const supabase=useSupabaseClient();
-    const router=useRouter();
+    const user = useUser()
+    const session = useSession();
+    const supabase = useSupabaseClient();
+    const router = useRouter();
     const [loading, setLoading] = useState(true)
-    const [messages,setMessage]=useState([]);
-    const [content,usecont]=useState("");
+    const [messages, setMessage] = useState([]);
+    const [content, usecont] = useState("");
     const [username, setUsername] = useState(null)
     const [full_name, setfullname] = useState(null)
     const [avatar_url, setAvatarUrl] = useState(null)
     const [userId, setUserId] = useState(null)
-    useEffect(()=>{
-        if(!router.isReady) return
+    useEffect(() => {
+        if (!router.isReady) return
         message();
         getProfile();
-    },[router.isReady])
+    }, [router.isReady])
 
     async function getProfile() {
         try {
@@ -54,69 +54,80 @@ function Room() {
             setLoading(false)
         }
     }
-    const message=async()=>{
-        let {data,error}=await supabase.from('messages').select("*, profile: profiles(id, username, avatar_url)").eq("room_name",String(router.query.Room));
-        if(error){
+    const message = async () => {
+        let { data, error } = await supabase.from('messages').select("*, profile: profiles(id, username, avatar_url)").eq("room_name", String(router.query.Room));
+        if (error) {
             throw error;
         }
-        var arr=data||[];
+        var arr = data || [];
         setMessage(arr)
 
-    } 
+    }
 
-    const InsertMessage=async()=>{
-        var message={
-            profile_id:user.id,
-            content:content,
-            room_name:router.query.Room,
+    const InsertMessage = async () => {
+        var message = {
+            profile_id: user.id,
+            content: content,
+            room_name: router.query.Room,
         }
-        let {error}=await supabase.from('messages').insert([message])
-       if(error) {
-        throw error
-       }
+        let { error } = await supabase.from('messages').insert([message])
+        if (error) {
+            throw error
+        }
 
     }
     supabase.channel('public:messages').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
-       
+
         console.log(payload);
-        payload.new["profile"]={
-            "id":user.id,
-            "username":username,
-            "avatar_url":avatar_url,
+        payload.new["profile"] = {
+            "id": user.id,
+            "username": username,
+            "avatar_url": avatar_url,
         }
         console.log("YES")
-       setMessage((messages)=>[].concat(messages,[payload.new]));
-        
-        
+        setMessage((messages) => [].concat(messages, [payload.new]));
 
-}).subscribe()
-console.log(messages);
+
+
+
+
+    }).subscribe()
+    console.log(messages);
 
     return (
-        
-        <div className=' w-full'>
-        <ChatNavbar room={router.query.Room} />
-        <div className='flex'>
-            <Sidebar />
-            <div className='ml-1 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto  pb-10 flex justify-start w-4/5'>
-                <ChatBox allMessages = {messages} user={user}/>
+        <div>
+            <div className=' w-full'>
+                <ChatNavbar room={router.query.Room} />
+                <div className='flex'>
+                    <Sidebar />
+                    <div className='mx-10 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto  pb-10 flex justify-center w-screen'>
+                        <ChatBox allMessages={messages} user={user} />
+                    </div>
+                </div>
+                <div className=' w-full'>
+                    <input
+                        type="text"
+                        value={content || ""}
+                        onChange={(e) => { usecont(e.target.value) }}
+                        className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
+                        placeholder='Enter message here...'
+                    />
+                    <PaperAirplaneIcon className='w-6 h-6' onClick={() => { InsertMessage() }} />
+                </div>
             </div>
-        </div>
-        <div className=' w-screen'>
-        </div>
-       
+            <div className=' w-screen'>
+            </div>
+
             <input
                 type="text"
-                value={content|| ""}
-                onChange={(e)=>{usecont(e.target.value)}}
+                value={content || ""}
+                onChange={(e) => { usecont(e.target.value) }}
                 className='flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
                 placeholder='Enter message here...'
             />
-           
-            <PaperAirplaneIcon className='w-6 h-6' onClick={()=>{InsertMessage()}} />
-    
-        
-    </div>
+
+            <PaperAirplaneIcon className='w-6 h-6' onClick={() => { InsertMessage() }} />
+        </div>
     )
 }
 
