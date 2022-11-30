@@ -1,8 +1,9 @@
 import React from 'react'
 import ChatInput from './ChatInput'
 import Image from 'next/image';
+import MyAvatar from './MyAvatar';
 
-
+    
 function ChatBox(props) {
     const chats = props.allMessages;
     var rows = [];
@@ -78,6 +79,8 @@ function ChatBox(props) {
         <div className=' w-full'>
             {rows}
         </div>
+
+
     )
 }
 
