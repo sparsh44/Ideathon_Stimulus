@@ -5,20 +5,20 @@ import MyAvatar from './MyAvatar';
 import moment from 'moment';
     
 function ChatBox(props) {
-    const chats = props.allMessages;
+    const chats = props.messages;
     var rows = [];
     var arr = chats || [];
     arr.forEach(chat => {
         rows.push(
 
 
-            (chat.profile_id === props.user.id) ? (
+            (chat.profile_id === props.user) ? (
                 <div className='flex w-fit ml-auto'>
                     <div className='flex-shrink-0 order-2'>
-                    <MyAvatar avatar_url = {chat.profile.avatar_url}/>
+                    <MyAvatar avatar_url = {chat.avatar_url}/>
                     </div>
                     <div className=' ml-auto'   >
-                        <p className='text-[0.65rem] px-[2px] pb-[2px] text-blue-400'>{chat.profile.username}</p>
+                        <p className='text-[0.65rem] px-[2px] pb-[2px] text-blue-400'>{chat.username}</p>
                         <div className=' items-end'>
                             <div className='px-3 py-2 rounded-lg w-fit text-white bg-blue-400'>
                                 <p>{chat.content}</p>
@@ -30,10 +30,10 @@ function ChatBox(props) {
             ) : (
                 <div className='flex w-fit'>
                     <div className='flex-shrink-0'>
-                    <MyAvatar avatar_url = {chat.profile.avatar_url}/>
+                    <MyAvatar avatar_url = {chat.avatar_url}/>
                     </div>
                     <div>
-                        <p className='text-[0.65rem] px-[2px] pb-[2px] text-red-400'>{chat.profile.username}</p>
+                        <p className='text-[0.65rem] px-[2px] pb-[2px] text-red-400'>{chat.username}</p>
                         <div className=' items-end'>
                             <div className='px-3 py-2 rounded-lg w-fit text-white bg-red-400'>
                                 <p>{chat.content}</p>
