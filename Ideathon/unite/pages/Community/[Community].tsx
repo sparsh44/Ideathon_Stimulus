@@ -139,7 +139,8 @@ function CommunityPage() {
                         <Resource community={router.query.Community} />
                         <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
                             <p className='text-md mb-1 p-4 pb-3 font-bold '>All Rooms</p>
-                            {clubNames.length === 0 ? (<div />) : (<PlusIcon className="icon" onClick={() => setShowInputbar(true)} />)}
+                            {clubNames.length === 0 ? (<div />) : (<PlusIcon className="icon" onClick={() => setShowInputbar(!showInputbar
+                                )} />)}
                             {showInputbar ? (
                                 <div className='flex items-center px-2'>
                                     <form >
