@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import ModalTile from './ModalTile';
 import { SearchIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
+import moment from "moment";
 
 type Props = {
     show: boolean;
@@ -38,7 +39,8 @@ export default function Modal({ show, setShow, community }: Props) {
     const rows = [];
     arr.forEach(link => {
         rows.push(
-            <a href={link.document_url}>{link.document_name}</a>
+            // <a href={link.document_url}>{link.document_name}</a>
+            <ModalTile title={link.document_name} link={link.document_url} timeCreated={moment(new Date(link.created_at)).fromNow()} />
         )
     })
 
@@ -69,27 +71,7 @@ export default function Modal({ show, setShow, community }: Props) {
                             </div>
                         </div>
                         <div className="mt-5 font-medium ">
-                            {/* Ujjwal bro, create an array name: resourceArray and do mapping of the array and pul ModalTile element along with the props.... */}
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
-                            <ModalTile title="Love Babbar 450 DSA Questions" by="Gopal Verma" link="https://www.google.com" timeCreated="69 min agp" />
+                           {rows}
                         </div>
                     </div>
                 </div>
