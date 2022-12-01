@@ -125,6 +125,7 @@ function Room() {
               className="flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-full ml-48 mr-2
               "
               placeholder="Enter message here..."
+               onKeyDown={(e)=>{if(e.key==="Enter"){ InsertMessage(), usecont("");}}}
             />
             <div className=" bg-blue-500 hover:bg-blue-600 cursor-pointer rounded-full mr-44">
               <PaperAirplaneIcon
