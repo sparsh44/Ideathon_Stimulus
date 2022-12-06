@@ -30,11 +30,8 @@ export default function Modal({ show, setShow, community }: Props) {
         if (error) {
             throw error
         }
-        if(data)
-        {
-        setRes(data);
-        console.log(data);
-        }
+
+        setRes(data || []);
 
     }
     const arr = res || []
