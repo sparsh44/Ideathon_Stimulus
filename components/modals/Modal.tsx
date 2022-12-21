@@ -23,16 +23,18 @@ export default function Modal({ show, setShow, community }: Props) {
         links()
 
     }, [community, router.isReady])
-    const [res, setRes] = useState([]);
+    const [res, setRes] = useState(null);
     console.log(community);
     const links = async () => {
+        
         let { data, error } = await supabase.from('resources').select("*").eq("clubName", community);
         if (error) {
             throw error
         }
-
-        setRes(data || []);
-
+        if(data)
+            setRes(data);
+        else
+            setRes([])
     }
     const arr = res || []
     const rows = [];
