@@ -182,7 +182,7 @@ const Home: NextPage = () => {
                 data.sort(function(a,b){
                     // Turn your strings into dates, and then subtract them
                     // to get a value that is either negative, positive, or zero.
-                    return new Date(b.created_at) - new Date(a.created_at);
+                    return (new Date(b.created_at) as any) - (new Date(a.created_at) as any);
                   });
                 setAllPosts(data)
                 // console.log(data)
