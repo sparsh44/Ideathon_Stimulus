@@ -2,10 +2,7 @@ import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import Home from "./Home";
-import ProfilePage from "../components/ProfilePage";
-import Navbar from "../components/Navbar";
-// import Preloader from "../components/Preloader";
-import PreLoader2 from "../components/Preloader";
+
 const customTheme = {
   default: {
     colors: {

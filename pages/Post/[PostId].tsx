@@ -5,7 +5,6 @@ import moment from 'moment'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
-import Comment from '../../assets/Coment'
 import MyAvatar from '../../components/MyAvatar'
 
 

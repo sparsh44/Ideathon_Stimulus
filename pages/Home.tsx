@@ -1,18 +1,11 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-// import User from '../assets/User'
 import { NextPage } from 'next'
-import Head from 'next/head'
-import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
-import Widge from '../components/Widget'
-import Tabs from '../components/Tabs'
 import PostBox from "../components/PostBox"
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Post from '../components/Post'
 import CommunitySidebar from '../components/CommunitySidebar'
-import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 

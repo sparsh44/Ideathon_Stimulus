@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import Navbar from '../../components/Navbar';
 import CommunityAvatar from '../../components/CommunityAvatar'
 import Feed from '../../components/Feed';
 import { useState, useEffect } from 'react';
