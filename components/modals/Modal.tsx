@@ -35,7 +35,7 @@ export default function Modal({ show, setShow, community }: Props) {
         
     }
     const arr = res || []
-    const rows = [];
+    const rows = [] as any;
     arr.forEach(link => {
         rows.push(
             // <a href={link.document_url}>{link.document_name}</a>
