@@ -31,11 +31,14 @@ export default function Modal({ show, setShow, community }: Props) {
         if (error) {
             throw error
         }
-        let mainData:any[] = null
-        
-        mainData = data
-        if(mainData!=null)
-            setRes(mainData)
+        if(data?.length===0)
+        {
+            setRes([])
+        }
+        else
+        {
+            setRes(data)
+        }
         
     }
     const arr = res || []
