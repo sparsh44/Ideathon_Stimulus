@@ -31,12 +31,13 @@ export default function Modal({ show, setShow, community }: Props) {
         if (error) {
             throw error
         }
-        setRes([data, ...res])
+        setRes(data)
         
     }
     const arr = res || []
-    const rows = [] as any;
-    arr.forEach(link => {
+    const rows = [];
+    
+    arr.forEach((link: any) => {
         rows.push(
             // <a href={link.document_url}>{link.document_name}</a>
             <ModalTile title={link.document_name} link={link.document_url} timeCreated={moment(new Date(link.created_at)).fromNow()} />
