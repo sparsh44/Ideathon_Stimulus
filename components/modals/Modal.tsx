@@ -23,7 +23,7 @@ export default function Modal({ show, setShow, community }: Props) {
         links()
 
     }, [community, router.isReady])
-    const [res, setRes] = useState(null);
+    const [res, setRes] = useState([]);
     console.log(community);
     const links = async () => {
         
@@ -31,9 +31,11 @@ export default function Modal({ show, setShow, community }: Props) {
         if (error) {
             throw error
         }
-        let mainData:any[] = data
+        let mainData:any[] = null
         
-        setRes(mainData)
+        mainData = data
+        if(mainData!=null)
+            setRes(mainData)
         
     }
     const arr = res || []
