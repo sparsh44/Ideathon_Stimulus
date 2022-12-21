@@ -1,7 +1,7 @@
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
-import Home from "./Home";
+import Home from "../components/Home";
 
 const customTheme = {
   default: {
@@ -37,7 +37,6 @@ const customTheme = {
   },
 };
 const Main = () => {
-  var [pagechanger, setpage] = useState("account");
   const session = useSession();
   const supabase = useSupabaseClient();
 
@@ -74,8 +73,7 @@ const Main = () => {
           </div>
         </div>
       ) : (
-         <Home />
-        // <ProfilePage session={session} />
+         <Home/>
       )}
     </div>
   );
