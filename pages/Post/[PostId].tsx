@@ -105,7 +105,6 @@ function PostPage() {
             .insert(
                 {
                     user_id: user.id,
-                    post_id: post.post_id,
                     username: username,
                     comment: commentText
                 }
