@@ -4,7 +4,7 @@ import { useState } from "react";
 import Home from "./Home";
 import ProfilePage from "../components/ProfilePage";
 import Navbar from "../components/Navbar";
-import Preloader from "../components/Preloader";
+// import Preloader from "../components/Preloader";
 import PreLoader2 from "../components/Preloader";
 const customTheme = {
   default: {
@@ -48,7 +48,7 @@ const Main = () => {
     <div>
       {!session ? (
         <div>
-          <Preloader />
+          {/* <Preloader /> */}
           <div className="flex h-screen w-full bg-gray-50">
             <div className="flex w-full h-screen items-center justify-center  lg:w-1/2">
               <div className=" bg-white px-10 py-20 rounded-3xl border-2 border-grey-200">
