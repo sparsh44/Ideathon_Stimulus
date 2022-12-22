@@ -7,18 +7,44 @@ import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, Sparkles
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
 import SmallCompanyLogo from "../assets/circular_favicon_light.png"
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { Menu } from '@headlessui/react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-
+import OnGoingChat from './OnGoingChat'
 
 function Navbar(props) {
     const router = useRouter();
     const supabase=useSupabaseClient();
     const user=useUser();
     const[show,setShow]=useState(false);
+    const[showRooms,setShowRooms]=useState(false);
+    const[filters,setFilters]=useState(false);
     const[username,setuser]=useState("");
     const[clubnm,setclub]=useState("Choose Club");
+    const [allRooms, setAllRooms] = useState([])
+
+    useEffect(() => {
+       getRooms()
+    })
+
+    async function getRooms() {
+
+        let { data, error, status } = await supabase
+            .from('joined_rooms')
+            .select(`roomName`)
+            .eq('user_id', user.id)
+        
+        if (error && status !== 406) {
+            throw error
+        }
+
+        if (data) {
+            setAllRooms(data)
+            console.log("Room Name fetched")
+
+        }
+    }
+    
     const makeadmin=async()=>{
         const { data, erro } = await supabase
         .from('profiles')
@@ -71,23 +97,23 @@ function Navbar(props) {
                     src={SmallCompanyLogo}
                     alt={'Company Logo'} />
             </div>
-            <div className="mx-5 flex item-center items-center xl:min-w-[300px] hidden sm:inline-flex">
-                <FilterIcon className="h-6 w-6" />
-                <p className='ml-2 hidden flex-1 lg:inline'>Filter</p>
-                <ChevronDownIcon className="h-6 w-6 cursor-pointer" />
-            </div>
-            <form className="flex  flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm">
+            <form className="flex  flex-1 items-center space-x-2 border-gray-200 bg-gray-100 px-3 py-1 border rounded-sm ml-40">
                 <SearchIcon className="h-6 w-6 text-gray-400" />
                 <input className="flex w- bg-transparent outline-none  md:flex" type="text" placeholder="Search Unite" />
                 <button type="submit" hidden />
             </form>
             <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
+        
                 <SparklesIcon className="icon" />
                 <GlobeIcon className="icon" />
-                <VideoCameraIcon className="icon" />
                 <hr className="h-10 border border-gray-100" />
-                <ChatIcon className="icon" />
-                <BellIcon className="icon" />
+                <ChatIcon className="icon" onClick={()=>{setShowRooms(!showRooms)}}/>
+                {
+                    showRooms && (
+                        <div>
+                        <OnGoingChat allRooms = {allRooms}/>
+                        </div>)
+                }
                 <PlusIcon className="icon" onClick={()=>{setShow(!show)}}/>
                 {
                     show && (
@@ -106,7 +132,6 @@ function Navbar(props) {
                         </div>
                     )
                 }
-                <SpeakerphoneIcon className="icon" />
             </div>
             <div className='ml-5 flex items-center lg:hidden text-gray-500 '>
                 <MenuIcon className='icon' />
