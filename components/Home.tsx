@@ -210,25 +210,7 @@ const Home: NextPage = () => {
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
                         <CommunitySidebar clubName={allClubs} adminList={clubNames} session={session} user={user} joinedClubs={joinedClubs} />
                     </div>
-                    <div className='flex my-7 mx-auto max-w-5xl'>
-                        <FilterIcon className="h-6 w-6" onClick={() => { setFilters(!filters) }} />
-                        {
-                            filters && (
-                                <div>
-                                    <ul>
-                                        <li onClick={() =>{setIndex(1)}}>
-                                            Joined Only
-                                        </li>
-                                        <li onClick={() =>{setIndex(2)}}>
-                                            Newest First
-                                        </li>
-                                        <li onClick={() =>{setIndex(0)}}>
-                                            All
-                                        </li>
-                                    </ul>
-                                </div>)
-                        }
-                    </div>
+                    
                 </div>
             </div>
         </div>
