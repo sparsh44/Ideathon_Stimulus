@@ -5,18 +5,45 @@ import CommunityData from '../assets/CommunityData'
 import CommunityAvatar from './CommunityAvatar'
 import MyAvatar from './MyAvatar'
 import { useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSupabaseClient,useUser,useSession } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 
 function GroupSidebar(props) {
+    const router=useRouter();
 
+    const supabase=useSupabaseClient();
+    console.log("Props");
+    console.log(props);
+    const [loading, setLoading] = useState(true) 
     var allRooms = props.allRooms || [];
+    var joinedRooms=props.joinedRooms||[];
     var rows = [];
+    console.log(joinedRooms);
     const map1 = new Map(
-        allRooms.map(mp => {
-            return [mp.clubName, true];
+        joinedRooms.map(mp => {
+            return [mp.roomName, true];
         }),
     );
+    const joinRoom=async(roomname)=>{
+        try{
+            setLoading(true)
+        let{error}=await supabase.from("joined_rooms").insert({
+            roomName:roomname,
+            user_id:props.user.id
+        });
+        if(error){
+            throw error;
+        }
+        alert(`You have joined ${roomname}!`)
+        router.push(`/Room/${roomname}`)
+    } catch(error){
+        alert("Error")
+        console.log(error)
+    } finally{
+        setLoading(false)
+        
+    }
+    }
 
     allRooms.forEach(room => {
         rows.push(
@@ -26,13 +53,13 @@ function GroupSidebar(props) {
                         <div>
                             <MyAvatar />
                         </div>
-                        <Link href={`/Room/${room.roomName}`}
-                            className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700 font-bold"
-                        >
+                        <div className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700 font-bold">
                             {room.roomName}
-                        </Link>
+                        </div>
                     </div>
-                    <button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white'>Join</button>
+                    {map1.get(room.roomName) ? ( <Link href={`/Room/${room.roomName}`}
+                            className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700 font-bold"
+                        ><button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Go To Chat</button></Link>) : (<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinRoom(room.roomName)} >Join</button>)}
                 </div>
             </div>
         )
