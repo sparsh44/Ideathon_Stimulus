@@ -23,31 +23,26 @@ export default function Modal({ show, setShow, community }: Props) {
         links()
 
     }, [community, router.isReady])
-    const [res, setRes] = useState([]);
+    const [res, setRes] = useState([] as any);
     console.log(community);
     const links = async () => {
+        
         let { data, error } = await supabase.from('resources').select("*").eq("clubName", community);
         if (error) {
             throw error
         }
-        setRes(data);
-        console.log(data);
-
-
+        setRes(data)
+        
     }
     const arr = res || []
     const rows = [];
-    arr.forEach(link => {
+    
+    arr.forEach((link: any) => {
         rows.push(
             // <a href={link.document_url}>{link.document_name}</a>
             <ModalTile title={link.document_name} link={link.document_url} timeCreated={moment(new Date(link.created_at)).fromNow()} />
         )
     })
-
-    const handleSearch = () => {
-        alert("Clicked Search")
-    }
-
     return (
         <>
             {show && (
@@ -59,7 +54,7 @@ export default function Modal({ show, setShow, community }: Props) {
                             </div>
                             <div
                                 className="bg-slate-100 p-3  hover:bg-slate-200 transition-all cursor-pointer"
-                                onClick={() => handleSearch(false)}
+                                
                             >
                                 <SearchIcon className="h-4 w-4 text-slate-500" />
                             </div>

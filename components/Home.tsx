@@ -1,42 +1,38 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-// import User from '../assets/User'
+import Navbar from './Navbar'
 import { NextPage } from 'next'
-import Head from 'next/head'
-import Sidebar from '../components/Sidebar'
-import Feed from '../components/Feed'
-import Widge from '../components/Widget'
-import Tabs from '../components/Tabs'
-import PostBox from "../components/PostBox"
+import Feed from './Feed'
+import PostBox from "./PostBox"
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Post from '../components/Post'
-import CommunitySidebar from '../components/CommunitySidebar'
-import Link from 'next/link'
-import {useRouter} from 'next/router'
+import CommunitySidebar from './CommunitySidebar'
+import { useRouter } from 'next/router'
+import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 
 
 const Home: NextPage = () => {
     const supabase = useSupabaseClient()
     const user = useUser()
     const session = useSession()
-    const router=useRouter();
+    const router = useRouter();
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
     const [full_name, setfullname] = useState(null)
     const [avatar_url, setAvatarUrl] = useState(null)
-    const [clubNames, setClubNames] = useState(null)
+    const [clubNames, setClubNames] = useState(null) 
     const [allPosts, setAllPosts] = useState(null)
     const [allClubs, setAllClubs] = useState(null)
     const [joinedClubs, setJoinedClubs] = useState(null)
+    const [filters, setFilters] = useState(false);
+    const [index, setIndex] = useState(0)
 
     useEffect(() => {
-        if(router.isReady){
+        if (router.isReady) {
 
-        getProfile()
+            getProfile()
         }
-        else{
-            return 
+        else {
+            return
         }
     }, [router.isReady])
 
@@ -68,7 +64,7 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
-        if(!router.isReady) return
+        if (!router.isReady) return
         getAdminId()
     }, [router.isReady])
 
@@ -80,7 +76,7 @@ const Home: NextPage = () => {
                 .from('club_admins')
                 .select(`clubName`)
                 .eq('user_id', user.id)
-                
+
             if (error && status !== 406) {
                 throw error
             }
@@ -99,7 +95,7 @@ const Home: NextPage = () => {
         }
     }
     useEffect(() => {
-        if(!router.isReady) return
+        if (!router.isReady) return
         getAllClubs()
     }, [router.isReady])
     async function getAllClubs() {
@@ -130,7 +126,7 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
-        if(!router.isReady) return
+        if (!router.isReady) return
         getJoinedClubs()
     }, [router.isReady])
     async function getJoinedClubs() {
@@ -162,7 +158,7 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
-        if(!router.isReady) return
+        if (!router.isReady) return
         getPosts()
     }, [router.isReady])
 
@@ -179,15 +175,12 @@ const Home: NextPage = () => {
             }
 
             if (data) {
-                data.sort(function(a,b){
+                data.sort(function (a, b) {
                     // Turn your strings into dates, and then subtract them
                     // to get a value that is either negative, positive, or zero.
-                    return new Date(b.created_at) - new Date(a.created_at);
-                  });
+                    return (new Date(b.created_at) as any) - (new Date(a.created_at) as any);
+                });
                 setAllPosts(data)
-                // console.log(data)
-                // console.log("All posts fetched")
-
             }
         } catch (error) {
             alert('Error loading user data!')
@@ -212,11 +205,12 @@ const Home: NextPage = () => {
                     <PostBox username={username} avatar_url={avatar_url} clubName={clubNames} session={session} user={user} />
                 </div>
                 <div className='flex my-7 mx-auto max-w-5xl'>
-                    <Feed posts={allPosts} />
+                    <Feed posts={allPosts}/>
                     <div className='sticky top-20 mt-10 mx-5 ml-5 hidden h-fit min-w-[300px] rounded-md border border-grap-300 bg-white lg:inline'>
                         <p className='text-md mb-1 p-4 pb-3 font-bold '>All Communities</p>
-                        <CommunitySidebar clubName={allClubs} adminList={clubNames}   session={session} user={user} joinedClubs ={joinedClubs}/>
+                        <CommunitySidebar clubName={allClubs} adminList={clubNames} session={session} user={user} joinedClubs={joinedClubs} />
                     </div>
+                    
                 </div>
             </div>
         </div>

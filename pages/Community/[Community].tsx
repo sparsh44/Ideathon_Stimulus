@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import Navbar from '../../components/Navbar';
 import CommunityAvatar from '../../components/CommunityAvatar'
 import Feed from '../../components/Feed';
 import { useState, useEffect } from 'react';
@@ -7,7 +6,6 @@ import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-r
 import Room from '../../components/Room'
 import Resource from '../../components/Resource'
 import { PlusIcon, HomeIcon } from '@heroicons/react/outline'
-import Link from 'next/link';
 
 
 function CommunityPage() {
@@ -55,7 +53,7 @@ function CommunityPage() {
         data.sort(function (a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
-            return new Date(b.created_at) - new Date(a.created_at);
+            return (new Date(b.created_at) as any) - (new Date(a.created_at) as any) ;
         });
         setPost(data)
     }

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,
     "target": "es5",
     "lib": [
       "dom",
@@ -8,7 +9,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -25,7 +26,7 @@
     "**/*.tsx",
     "assets/User.js",
     "assets/PostData.ts",
-    "pages/Home.tsx",
+    "components/Home.tsx",
     "components/Navbar.js",
     "components/Sidebar.js",
     "components/PostBox.js"
