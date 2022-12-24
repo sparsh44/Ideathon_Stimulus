@@ -60,7 +60,7 @@ function CommunitySidebar(props) {
                             {club.clubName}
                         </Link>
                     </div>
-                    {map1.get(club.clubName) ? (<button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Join</button>) : (<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinClub(club.clubName)} >Join</button>)}
+                    {map1.get(club.clubName) ? (<button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Joined</button>) : (<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinClub(club.clubName)} >Join</button>)}
                 </div>
             </div>
         )
