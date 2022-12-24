@@ -106,38 +106,45 @@ function Room() {
     .subscribe();
   console.log(messages);
 
+  const conditionalInsertMessage = () => {
+    if (content == "") {
+      alert("Message can't be empty!")
+    } else {
+      InsertMessage();
+    }
+  }
+
   return (
-    <div className="flex w-full bg-slate-900">
-      <div className=" w-full">
+    <div className="flex w-fit bg-slate-900">
+      <div className="w-screen">
         <ChatNavbar room={router.query.Room} />
-        <div className="flex">
-          <div className="lg:px-40 md:mx-10 mx-19 mt-20 mb-10 pb-10 flex justify-center w-screen">
+        <div className="flex w-screen">
+          <div className="lg:px-40 md:mx-10 mx-19 mt-20 mb-10 pb-10 flex justify-cente w-screen">
             <ChatBox messages={messages} user={userId} />
           </div>
         </div>
-          <div className=" w-screen flex bottom-0 absolute  ">
-            <input
-              type="text"
-              value={content || ""}
-              onChange={(e) => {
-                usecont(e.target.value);
+        <div className="flex justify-center sticky absolute mb-5 bottom-5 mx-4 lg:mx-32 ">
+          <input
+            type="text"
+            value={content || ""}
+            onChange={(e) => {
+              usecont(e.target.value);
+            }}
+            className="px-5 rounded-l-full w-full"
+            placeholder="Enter message here..."
+            onKeyDown={(e) => { if (e.key === "Enter") { InsertMessage(), usecont(""); } }}
+          />
+          <div className=" bg-blue-500 rounded-r-full hover:bg-blue-600 cursor-pointer ">
+            <PaperAirplaneIcon
+              className="w-6 h-6 text-white mx-6 my-4 rounded-full"
+              onClick={() => {
+                conditionalInsertMessage(), usecont("");
               }}
-              className="flex-1  border-gray-300 focus:outline-none px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-full ml-48 mr-2
-              "
-              placeholder="Enter message here..."
-               onKeyDown={(e)=>{if(e.key==="Enter"){ InsertMessage(), usecont("");}}}
             />
-            <div className=" bg-blue-500 hover:bg-blue-600 cursor-pointer rounded-full mr-44">
-              <PaperAirplaneIcon
-                className="w-8 h-8 text-white mx-5 my-2 rounded-full"
-                onClick={() => {
-                  InsertMessage(), usecont("");
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

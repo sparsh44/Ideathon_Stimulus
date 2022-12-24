@@ -4,6 +4,7 @@
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-hook-form": "^7.39.4",
+    "react-lottie": "^1.2.3",
     "react-timeago": "^7.1.0"
   }
 }
