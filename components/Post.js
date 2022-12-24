@@ -5,6 +5,7 @@ import MyAvatar from './MyAvatar'
 import moment from 'moment';
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
+// import { HeartIcon } from '@heroicons/react/solid'
 import PostAvatar from './PostAvatar'
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -177,7 +178,7 @@ function Post(props) {
                 <div className='flex space-x-4 text-gray-400 justify-between'>
                     <div className='flex'>
                         <div className='postButtons'>
-                            {isLiked || likedByUser?(<HeartIcon className='h-6 w-6 bg-red-900' onClick={like} />):<HeartIcon className='h-6 w-6' onClick={like} />}
+                            {isLiked || likedByUser?(<HeartIcon className='h-6 w-6 fill-red-800' onClick={like} />):<HeartIcon className='h-6 w-6' onClick={like} />}
                             <p className='hidden sm:inline'>{likeNum} Likes</p>
                         </div>
                         <div className='postButtons'>
