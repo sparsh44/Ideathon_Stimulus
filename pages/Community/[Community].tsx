@@ -19,16 +19,32 @@ function CommunityPage() {
     const [clubNames, setClubNames] = useState([]);
     const [allRooms, setAllRooms] = useState([]);
     const [showInputbar, setShowInputbar] = useState(false);
+    const [joinedRooms,setjoinedRoom]=useState([]);
 
     useEffect(() => {
         if (!router.isReady) return
         allPost();
+        joinedRoom();
+       
     }, [router.isReady])
-
+   
     useEffect(() => {
         if (!router.isReady) return
         getAdminId()
     }, [ router.isReady])
+    const joinedRoom=async()=>{
+
+    
+        let{data,error}=await supabase.from("joined_rooms").select("*").eq("user_id",user.id);
+        if(error){
+            throw error;
+        }
+        if(data){
+            setjoinedRoom(data);
+        }
+ 
+
+    }
 
     async function getAdminId() {
 
@@ -159,7 +175,7 @@ function CommunityPage() {
                                 </div>
                             ) : (<div />)}
                         </div>
-                        <Room allRooms={allRooms} />
+                        <Room allRooms={allRooms} joinedRooms={joinedRooms} user={user}/>
                     </div>
                 </div>
             </div>
