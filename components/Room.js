@@ -18,7 +18,9 @@ function GroupSidebar(props) {
     var allRooms = props.allRooms || [];
     var joinedRooms=props.joinedRooms||[];
     var rows = [];
+    console.log("...................................")
     console.log(joinedRooms);
+
     const map1 = new Map(
         joinedRooms.map(mp => {
             return [mp.roomName, true];
@@ -58,8 +60,7 @@ function GroupSidebar(props) {
                         </div>
                     </div>
                     {map1.get(room.roomName) ? ( <Link href={`/Room/${room.roomName}`}
-                            className="block px-4 py-2 text-sm text-gray-500 rounded-lg hover:bg-blue-50 hover:text-gray-700 font-bold"
-                        ><button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Go To Chat</button></Link>) : (<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinRoom(room.roomName)} >Join</button>)}
+                        ><button className='cursor-pointer rounded-full bg-gray-400 px-3 text-white'>Chat</button></Link>) : (<button className='cursor-pointer rounded-full bg-blue-500 px-3 text-white' onClick={() => joinRoom(room.roomName)} >Join</button>)}
                 </div>
             </div>
         )

@@ -35,7 +35,7 @@ function CommunityPage() {
     const joinedRoom=async()=>{
 
     
-        let{data,error}=await supabase.from("joined_rooms").select("*").eq("user_id",user.id);
+        let{data,error}=await supabase.from("joined_rooms").select("roomName").eq("user_id",user.id);
         if(error){
             throw error;
         }
