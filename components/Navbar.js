@@ -47,26 +47,7 @@ function Navbar(props) {
         }
     }
 
-    const makeadmin = async () => {
-        const { data, erro } = await supabase
-            .from('profiles')
-            .select("id").eq("username", username).single();
 
-        const { error } = await supabase
-            .from('club_admins')
-            .insert(
-                {
-                    clubName: clubnm,
-                    user_id: data.id
-
-                }
-            )
-        if (error) {
-            throw error
-        }
-        alert("Admin Created");
-
-    }
     var arr = props.clubs || [];
     var rows = [];
     arr.forEach(element => {

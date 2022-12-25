@@ -9,7 +9,7 @@ function CreateModal({ showStatus, clubnm, rows, _username }) {
     const [username, setuser] = useState("");
     const supabase = useSupabaseClient();
     const makeadmin = async () => {
-        const { data, erro } = await supabase
+        const { data} = await supabase
             .from('profiles')
             .select("id").eq("username", username).single();
 
