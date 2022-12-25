@@ -43,6 +43,7 @@ function Post(props) {
         if (!router.isReady || props.post === "" || props.userId === null) return
         getLike(),
             getcomment()
+            isLikedByUser()
     }, [props, router.isReady])
     const supabase = useSupabaseClient();
     console.log(props);
@@ -51,6 +52,8 @@ function Post(props) {
     const [likeNum, setlikeNum] = useState(0);
     const [commentNum, setcommentNum] = useState(0);
     const [dropDown, setDropDown] = useState(false)
+    const [isLiked, setIsliked] = useState(false)
+    const [likedByUser, setLikedByUser] = useState(false)
 
     const getLike = async () => {
         let { data, error } = await supabase.from("likes").select("*").eq("post_id", props.post.post_id);
@@ -60,8 +63,19 @@ function Post(props) {
         console.log(data || []);
         const d = data || [];
         setlikeNum(d.length);
-
     }
+
+    
+    const isLikedByUser = async () => {
+        let { data, error } = await supabase.from("likes").select("*").eq("post_id", props.post.post_id).eq('user_id', user.id);
+        if (error) {
+            throw error;
+        }
+    
+        if(data.length!=0)
+            setLikedByUser(true);
+    }
+    
 
     const getcomment = async () => {
         let { data, error } = await supabase.from("comments").select("*").eq("post_id", props.post.post_id);
@@ -94,8 +108,8 @@ function Post(props) {
             if (error) {
                 throw error
             }
-            alert("Like Done");
-            router.reload();
+            setlikeNum(likeNum+1)
+            setIsliked(true)
         }
         else {
             alert("Like Done Already");
@@ -164,7 +178,7 @@ function Post(props) {
                 <div className='flex space-x-4 text-gray-400 justify-between'>
                     <div className='flex'>
                         <div className='postButtons'>
-                            <HeartIcon className='h-6 w-6' onClick={like} />
+                            {isLiked || likedByUser?(<HeartIcon className='h-6 w-6 fill-red-800' onClick={like} />):<HeartIcon className='h-6 w-6' onClick={like} />}
                             <p className='hidden sm:inline'>{likeNum} Likes</p>
                         </div>
                         <div className='postButtons'>
