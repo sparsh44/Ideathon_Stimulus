@@ -32,7 +32,7 @@ function Navbar(props) {
         let { data, error, status } = await supabase
             .from('joined_rooms')
             .select(`roomName`)
-            .eq('user_id', user.id)
+            .eq('user_id', props.userId)
         
         if (error && status !== 406) {
             throw error

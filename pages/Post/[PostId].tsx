@@ -88,13 +88,13 @@ function PostPage() {
         
     }
     const comments = async () => {
-        let { data: comm, error } = await supabase.from('comments').select('*').eq('post_id', router.query.PostId);
+        let { data, error } = await supabase.from('comments').select('*').eq('post_id', router.query.PostId);
 
         if (error) {
             throw error;
         }
-        var de=comm||[];
-        setComment(de);
+        
+        setComment(data);
 
     }
 
