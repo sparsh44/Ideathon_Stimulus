@@ -5,7 +5,7 @@ import MyAvatar from './MyAvatar'
 import moment from 'moment';
 import { ChatAltIcon, DotsHorizontalIcon, PaperAirplaneIcon, ShareIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/outline'
-// import { HeartIcon } from '@heroicons/react/solid'
+
 import PostAvatar from './PostAvatar'
 import { useState, useEffect } from 'react'
 import { useSession, useUser, useSupabaseClient } from '@supabase/auth-helpers-react'

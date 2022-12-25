@@ -7,24 +7,26 @@ import { BellIcon, ChatIcon, GlobeIcon, MenuIcon, PlusIcon, SearchIcon, Sparkles
 import { BeakerIcon, ChevronDownIcon, HomeIcon, FilterIcon } from '@heroicons/react/solid'
 import CompanyLogo from '../assets/unite.png'
 import SmallCompanyLogo from "../assets/circular_favicon_light.png"
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { Menu } from '@headlessui/react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import OnGoingChat from './OnGoingChat'
+import MessageListModal from './modals/MessageListModal';
+import CreateModal from './modals/CreateModal';
 
 function Navbar(props) {
     const router = useRouter();
-    const supabase=useSupabaseClient();
-    const user=useUser();
-    const[show,setShow]=useState(false);
-    const[showRooms,setShowRooms]=useState(false);
-    const[filters,setFilters]=useState(false);
-    const[username,setuser]=useState("");
-    const[clubnm,setclub]=useState("Choose Club");
+    const supabase = useSupabaseClient();
+    const user = useUser();
+    const [show, setShow] = useState(false);
+    const [showRooms, setShowRooms] = useState(false);
+    const [filters, setFilters] = useState(false);
+    const [username, setuser] = useState("");
+    const [clubnm, setclub] = useState("Choose Club");
     const [allRooms, setAllRooms] = useState([])
 
     useEffect(() => {
-       getRooms()
+        getRooms()
     })
 
     async function getRooms() {
@@ -44,43 +46,24 @@ function Navbar(props) {
 
         }
     }
-    
-    const makeadmin=async()=>{
-        const { data, erro } = await supabase
-        .from('profiles')
-        .select("id").eq("username",username).single();
 
-        const { error } = await supabase
-        .from('club_admins')
-        .insert(
-            {
-                clubName:clubnm,
-                user_id:data.id
 
-            }
-        )
-        if(error){
-            throw error
-        }
-        alert("Admin Created");
-                
-    }
-    var arr=props.clubs||[];
-    var rows=[];
+    var arr = props.clubs || [];
+    var rows = [];
     arr.forEach(element => {
         rows.push(
-            <Menu.Item onClick={()=>{setclub(element.clubName)}}>
-        
-            <a
-             
-             
-            >
-              {element.clubName}
-            </a>
-        
-        </Menu.Item>
+            <Menu.Item onClick={() => { setclub(element.clubName) }}>
+
+                <a
+
+
+                >
+                    {element.clubName}
+                </a>
+
+            </Menu.Item>
         )
-        
+
     });
     return (
         <div className="flex bg-white px-4 top-0 shadow-sm items-center">
@@ -88,8 +71,8 @@ function Navbar(props) {
                 <Image
                     objectFit="contain"
                     src={CompanyLogo}
-                    alt={'Company Logo'} 
-                    onClick={() => { router.push("/")}}/>
+                    alt={'Company Logo'}
+                    onClick={() => { router.push("/") }} />
             </div>
             <div className=' -ml-3 relative h-20 w-20 sm:hidden flex-shrink cursor-pointer '>
                 <Image
@@ -102,35 +85,18 @@ function Navbar(props) {
                 <input className="flex w- bg-transparent outline-none  md:flex" type="text" placeholder="Search Unite" />
                 <button type="submit" hidden />
             </form>
+
             <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
-        
                 <SparklesIcon className="icon" />
                 <GlobeIcon className="icon" />
                 <hr className="h-10 border border-gray-100" />
-                <ChatIcon className="icon" onClick={()=>{setShowRooms(!showRooms)}}/>
+                <ChatIcon className="icon" onClick={() => { setShowRooms(!showRooms) }} />
                 {
-                    showRooms && (
-                        <div>
-                        <OnGoingChat allRooms = {allRooms}/>
-                        </div>)
+                    showRooms && (<MessageListModal showStatus={showRooms} _allRooms={allRooms} />)
                 }
-                <PlusIcon className="icon" onClick={()=>{setShow(!show)}}/>
+                <PlusIcon className="icon" onClick={() => { setShow(!show) }} />
                 {
-                    show && (
-                        <div>
-                        <Menu>
-                          <Menu.Button>{clubnm}</Menu.Button>
-                              <Menu.Items>
-                                   {rows}
-                             </Menu.Items>
-                         </Menu>
-                            <input type="text" placeholder='Enter Username'
-                            value={username||""} 
-                            onChange={e => setuser(e.target.value)} />
-                            <button onClick={()=>{makeadmin()}}>Create Admin</button>
-
-                        </div>
-                    )
+                    show && (<CreateModal showStatus={show} clubnm={clubnm} rows={rows} _username={username} />)
                 }
             </div>
             <div className='ml-5 flex items-center lg:hidden text-gray-500 '>
@@ -138,23 +104,23 @@ function Navbar(props) {
             </div>
             <Link href={'/ProfilePage'}><div className='hidden space-x-2 items-center border-gray-200 border p-2 cursor-pointer lg:flex rounded-full'>
                 <div className='relative h-5 w-5 flex-shrink-0 '>
-                {props.avatar_url ?
-                (<Image
-                    layout='fill'
-                    className=' rounded-full'
-                    src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/avatars/${props.avatar_url}`}
-                />) : (
-                    <Image
-                        layout='fill'
-                        className=' rounded-full'
-                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                    />
-                )}
+                    {props.avatar_url ?
+                        (<Image
+                            layout='fill'
+                            className=' rounded-full'
+                            src={`https://hawkhcsdahiaxlsytwfd.supabase.co/storage/v1/object/public/avatars/${props.avatar_url}`}
+                        />) : (
+                            <Image
+                                layout='fill'
+                                className=' rounded-full'
+                                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                            />
+                        )}
                 </div>
                 <p className='text-gray-400'>{props.username}</p>
             </div></Link>
         </div>
-       
+
     )
 }
 
