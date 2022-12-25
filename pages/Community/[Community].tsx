@@ -35,7 +35,7 @@ function CommunityPage() {
     const joinedRoom=async()=>{
 
     
-        let{data,error}=await supabase.from("joined_rooms").select("*").eq("user_id",user.id);
+        let{data,error}=await supabase.from("joined_rooms").select("roomName").eq("user_id",user.id);
         if(error){
             throw error;
         }
@@ -92,6 +92,8 @@ function CommunityPage() {
             if (data) {
 
                 alert("Room created")
+                allRooms.push(subGroupName)
+                setAllRooms(allRooms)
                 router.reload();
             }
 
@@ -160,14 +162,14 @@ function CommunityPage() {
                                     <form >
                                         <input
                                             type="text"
-                                            className='m-2 flex-1 bg-blue-50 outline-none p-2'
+                                            className='m-2 flex-1 bg-blue-50 outline-none p-2 w-32'
                                             onChange={(e) => setSubGroupName(e.target.value)}
                                             placeholder="Room Name"
                                         />
                                         {subGroupName.length === 0 ? (
-                                            <button type='submit' className='w-full rounded-full bg-gray-400 font-bold p-2 text-white' disabled>Create Room</button>
+                                            <button type='submit' className='ml-4 w-28 rounded-full bg-gray-400 font-bold p-2 text-white' disabled>Create Room</button>
                                         ) : (
-                                            <button onClick={() => onSubmit(subGroupName)} type='submit' className='w-full rounded-full bg-blue-400 font-bold p-2 text-white'>Create Room</button>
+                                            <button onClick={() => onSubmit(subGroupName)} type='submit' className='ml-4 w-28 rounded-full bg-blue-400 font-bold p-2 text-white'>Create Room</button>
 
                                         )}
 
