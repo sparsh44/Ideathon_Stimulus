@@ -103,6 +103,7 @@ function PostPage() {
             .from('comments')
             .insert(
                 {
+                    post_id:router.query.PostId,
                     user_id: user.id,
                     username: username,
                     comment: commentText
