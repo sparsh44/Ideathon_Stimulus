@@ -41,18 +41,20 @@ function CreateModal({ showStatus, clubnm, rows, _username }) {
                     </div>
                 </div>
                 <div className='flex flex-col'>
-                    <div className=''>
+                    <div className='flex flex-col'>
                         <Menu>
+                        <div className='flex flex-col my-5'>
                             <Menu.Button>{clubnm}</Menu.Button>
-                            <Menu.Items>
+                            </div>
+                            <Menu.Items className='flex flex-col'>
                                 {rows}
                             </Menu.Items>
                         </Menu>
-                        <input className='mx-5' type="text" placeholder='Enter Username'
+                        <input className='my-5' type="text" placeholder='Enter Username'
                             value={username || ""}
                             onChange={e => setuser(e.target.value)} />
                     </div>
-                    <button className=' bg-blue-400 rounded-full text-white px-5' onClick={() => { makeadmin() }}>Create Admin</button>
+                    <button className=' bg-blue-400 rounded-full text-white px-5 my-5' onClick={() => { makeadmin() }}>Create Admin</button>
                 </div>
             </div>
         </div>
