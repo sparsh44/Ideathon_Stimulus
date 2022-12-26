@@ -1,35 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { SearchIcon } from '@heroicons/react/outline'
+
 import { XIcon } from '@heroicons/react/solid'
 import OnGoingChat from '../OnGoingChat'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 function MessageListModal({ showStatus, _allRooms }) {
-    const supabase = useSupabaseClient();
+    
     const [show, setShow] = useState(showStatus)
-    const user = useUser();
-    const [allRooms, setAllRooms] = useState([])
-    useEffect(() => {
-        getRooms()
-    })
-
-    async function getRooms() {
-
-        let { data, error, status } = await supabase
-            .from('joined_rooms')
-            .select(`roomName`)
-            .eq('user_id', user.id)
-
-        if (error && status !== 406) {
-            throw error
-        }
-
-        if (data) {
-            setAllRooms(data)
-            console.log("Room Name fetched")
-
-        }
-    }
+    
+    const [allRooms, setAllRooms] = useState(_allRooms)
+    
     return (
         show &&
         <div className="fixed top-0 flex items-center justify-center p-10 left-0 right-0 bottom-0 bg-opacity-25 bg-black z-50 overflow-x-hidden overflow-y-auto">
