@@ -35,7 +35,7 @@ function Navbar(props) {
             .from('joined_rooms')
             .select(`roomName`)
             .eq('user_id', props.userId)
-        
+
         if (error && status !== 406) {
             throw error
         }
@@ -87,8 +87,8 @@ function Navbar(props) {
             </form>
 
             <div className="flex hidden lg:inline-flex items-center mx-5 space-x-2 text-gray-500">
-                <SparklesIcon className="icon" />
-                <GlobeIcon className="icon" />
+                <a href='https://www.canva.com/design/DAFV2jBlaZM/T0PCD1OLOjyDMiZQYhhL9A/edit?utm_content=DAFV2jBlaZM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton'><SparklesIcon className="icon" /></a>
+                <a href='https://github.com/sparsh44/Ideathon_Stimulus'><GlobeIcon className="icon" /></a>
                 <hr className="h-10 border border-gray-100" />
                 <ChatIcon className="icon" onClick={() => { setShowRooms(!showRooms) }} />
                 {
