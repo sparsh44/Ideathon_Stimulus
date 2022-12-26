@@ -32,6 +32,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Presentation : https://www.canva.com/design/DAFV2jBlaZM/T0PCD1OLOjyDMiZQYhhL9A/edit?utm_content=DAFV2jBlaZM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 ## Deployed on Vercel
 
